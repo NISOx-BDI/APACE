@@ -90,6 +90,5 @@ mGq3e2   = mean(e2(e2>q3e2));
 % Summary statistics: mean, we2, median, q3, mean(e2>median), mean(e2>q3)
 SummaryE = [meane2; we2; mede2; q3e2; mGmede2; mGq3e2];
 
-fprintf('.\n');
 
 return

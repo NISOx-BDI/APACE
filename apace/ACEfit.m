@@ -272,6 +272,4 @@ if ~ACEfit_Par.NoImg
     
 end
 
-fprintf('.\n');
-
 return

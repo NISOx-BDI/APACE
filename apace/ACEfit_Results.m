@@ -147,7 +147,11 @@ n_mGTmedian             = min(find(smGTmedian(:)==mGmed_ACE(N)));
 bar(x1,f1/N);
 
 % Calculate the permutation-based p-value
-p_mGTmedian = (N-n_mGTmedian+1)/N;
+if ~isnan(mGmed_ACE(1))
+  p_mGTmedian = (N-n_mGTmedian+1)/N;
+else
+  p_mGTmedian = NaN;
+end  
 
 set(gca, 'xtick', 0)
 if ctl_val_mGTmedian==mGmed_ACE(N)
@@ -179,7 +183,12 @@ n_mGTq3         = min(find(smGTq3(:)==mGq3_ACE(N)));
 bar(x1,f1/N);
 
 % Calculate the permutation-based p-value
-p_mGTq3 = (N-n_mGTq3+1)/N;
+if ~isnan(mGq3_ACE(1))
+  p_mGTq3 = (N-n_mGTq3+1)/N;
+else
+  p_mGTq3 = NaN;
+end
+
 
 set(gca, 'xtick', 0)
 if ctl_val_mGTq3==mGq3_ACE(N)
@@ -293,7 +302,7 @@ if ~ACEfit_Par.NoImg
     % -log10(FDR corrected p-value) for voxels
     FDR_Pval = -log10(FDR_Pval);
     
-    fprintf('Minimum element-wise P_FDR is %.2f. \n \n', FDR_min);
+    fprintf('Minimum element-wise P_FDR is %.4f. \n \n', FDR_min);
     
     %
     % Voxel-wise FWE correction
@@ -312,7 +321,7 @@ if ~ACEfit_Par.NoImg
         end
     end
     
-    fprintf('Minimum element-wise P_FWE is %.2f. \n \n', 10.^(-max(corrPval_ACE)));
+    fprintf('Minimum element-wise P_FWE is %.4f. \n \n', 10.^(-max(corrPval_ACE)));
 
     %
     % Write out the output images

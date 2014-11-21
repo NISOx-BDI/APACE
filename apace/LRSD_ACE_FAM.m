@@ -22,9 +22,9 @@ n      = length(Res);
 
 % Data-dependent computations
 
-ResMZ  = Res(I_MZ);
-ResDZ  = Res(I_DZ);
-ResSib = Res(I_Sib);
+ResMZ  = reshape(Res(I_MZ),size(I_MZ));
+ResDZ  = reshape(Res(I_DZ),size(I_DZ));
+ResSib = reshape(Res(I_Sib),size(I_Sib));
 
 y    = zeros(3,1);
 y(1) = sum((ResMZ(:,1)-ResMZ(:,2)).^2);

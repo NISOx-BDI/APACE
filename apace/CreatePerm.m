@@ -6,7 +6,7 @@ function Perm_index = CreatePerm(nG1,nG2,nPerm)
 % nG2    - number of subjects or subject pairs in group 2
 % nPerm  - number of permutations
 %
-if nPerm>nchoosek(nG1+nG2,nG1)
+if nPerm>mynchoosek(nG1+nG2,nG1)
     error('Too many permutations!  Please set ''nPerm'' to %d or smaller',nchoosek(nG1+nG2,nG1))
 end
 
@@ -27,5 +27,11 @@ for i=1:nPerm
         end
     end
 end
+
+return
+
+function n = mynchoosek(n1,n2)
+
+n = exp(gammaln(n1+n2+1)-gammaln(n1+1)-gammaln(n2+1));
 
 return

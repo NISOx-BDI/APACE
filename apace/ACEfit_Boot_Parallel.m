@@ -18,7 +18,9 @@ for k=RunID
     
     for j=1:nBootPerRun
         
-        fprintf('%d',j);
+        if rem(j,10)==0
+	  fprintf('%d ',j);
+	end
         
         rand_pair = index(j,:);
         [Boot_label, Boot_kin] = deal([]);
@@ -59,5 +61,7 @@ for k=RunID
                                                 'MEANE2','WE2','MEDE2','Q3E2','MGMEDE2','MGQ3E2');
     
 end
+
+fprintf('.\n');
 
 return
