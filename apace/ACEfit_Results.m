@@ -309,7 +309,7 @@ if ~ACEfit_Par.NoImg
     % -log10(FDR corrected p-value) for voxels
     FDR_Pval = -log10(FDR_Pval);
     
-    fprintf('Minimum element-wise P_FDR is %.2f. \n \n', FDR_min);
+    fprintf('Minimum element-wise P_FDR is %.4f. \n \n', FDR_min);
     
     %
     % Voxel-wise FWE correction
@@ -328,7 +328,7 @@ if ~ACEfit_Par.NoImg
         end
     end
     
-    fprintf('Minimum element-wise P_FWE is %.2f. \n \n', 10.^(-max(corrPval_ACE)));
+    fprintf('Minimum element-wise P_FWE is %.4f. \n \n', 10.^(-max(corrPval_ACE)));
 
     %
     % Write out the output images
