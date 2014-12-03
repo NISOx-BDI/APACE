@@ -16,7 +16,7 @@ if size(X,1)~=n
 end
 
 %
-% Find the indicies of MZ, DZ & Sib pairs
+% Find the indices of MZ, DZ & Sib pairs
 %
 kin     = triu(ACEfit_Par.kin);
 MZcode  = 1;
@@ -33,7 +33,6 @@ ACEfit_Par.I_Sib = [rem(fk_Sib,n) (fk_Sib - rem(fk_Sib,n))/n+1];
 if ( ACEfit_Par.AggNlz==2 || ACEfit_Par.AggNlz==3 )
     ACEfit_Par.Ymean = mean(Y,2);
 end
-
 
 % Inverse Gaussian transform
 if ACEfit_Par.Nlz>0
@@ -70,6 +69,11 @@ if isempty(I_data)
     error('All in-mask data vectors are null vectors or contain NaN')
 else
     ACEfit_Par.I_data = I_data';
+end
+
+% Check the selected model
+if ( ~strcmpi(ACEfit_Par.Model,'ACE') && ~strcmpi(ACEfit_Par.Model,'AE') )
+    error('Unknown model. The fitted model should be ''AE'' or ''ACE''! \n')
 end
 
 return

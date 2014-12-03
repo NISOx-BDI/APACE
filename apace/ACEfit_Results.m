@@ -138,76 +138,83 @@ print('-dpdf',fullfile(ACEfit_Par.ResDir,'q3.pdf'));
 
 
 %%% (5) mean(>median)
-f = f+1;
-figure(f);
-[smGTmedian,omGTmedian] = sort(mGmed_ACE);
-ctl_val_mGTmedian       = smGTmedian(ctl_val_index);
-[f1,x1]                 = hist(smGTmedian,100);
-n_mGTmedian             = min(find(smGTmedian(:)==mGmed_ACE(N)));
-bar(x1,f1/N);
-
-% Calculate the permutation-based p-value
-if ~isnan(mGmed_ACE(1))
-  p_mGTmedian = (N-n_mGTmedian+1)/N;
+if any(isnan(mGmed_ACE))
+    
+    p_mGTmedian = NaN;
+    
 else
-  p_mGTmedian = NaN;
-end  
+    
+    f = f+1;
+    figure(f);
+    [smGTmedian,omGTmedian] = sort(mGmed_ACE);
+    ctl_val_mGTmedian       = smGTmedian(ctl_val_index);
+    [f1,x1]                 = hist(smGTmedian,100);
+    n_mGTmedian             = min(find(smGTmedian(:)==mGmed_ACE(N)));
+    bar(x1,f1/N);
+    
+    % Calculate the permutation-based p-value
+    p_mGTmedian = (N-n_mGTmedian+1)/N;
+    
+    set(gca, 'xtick', 0)
+    if ctl_val_mGTmedian==mGmed_ACE(N)
+        set(gca, 'xtick', ctl_val_mGTmedian)
+    else
+        set(gca, 'xtick', sort([ctl_val_mGTmedian mGmed_ACE(N)]))
+    end
+    
+    title(sprintf('Empirical Distribution of Mean of h^2 > Q2(h^2), P-value=%.3f',p_mGTmedian));
+    xlabel('mean of h^2 > Q2(h^2)');
+    hold on;
+    yLimits = get(gca,'YLim');
+    line([mGmed_ACE(N) mGmed_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
+    % Plot the critical threshold (red)
+    line([ctl_val_mGTmedian ctl_val_mGTmedian],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
+    hold off;
+    set(gcf,'PaperPosition',[0 0 10 6])
+    set(gcf,'PaperSize',[10 6])
+    print('-dpdf',fullfile(ACEfit_Par.ResDir,'mGTmedian.pdf'));
 
-set(gca, 'xtick', 0)
-if ctl_val_mGTmedian==mGmed_ACE(N)
-    set(gca, 'xtick', ctl_val_mGTmedian)
-else
-    set(gca, 'xtick', sort([ctl_val_mGTmedian mGmed_ACE(N)]))
 end
-
-title(sprintf('Empirical Distribution of Mean of h^2 > Q2(h^2), P-value=%.3f',p_mGTmedian));
-xlabel('mean of h^2 > Q2(h^2)');
-hold on;
-yLimits = get(gca,'YLim');
-line([mGmed_ACE(N) mGmed_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
-% Plot the critical threshold (red)
-line([ctl_val_mGTmedian ctl_val_mGTmedian],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
-hold off;
-set(gcf,'PaperPosition',[0 0 10 6])
-set(gcf,'PaperSize',[10 6])
-print('-dpdf',fullfile(ACEfit_Par.ResDir,'mGTmedian.pdf'));
 
 
 %%% (6) mean(>q3)
-f = f+1;
-figure(f);
-[smGTq3,omGTq3] = sort(mGq3_ACE);
-ctl_val_mGTq3   = smGTq3(ctl_val_index);
-[f1,x1]         = hist(smGTq3,100);
-n_mGTq3         = min(find(smGTq3(:)==mGq3_ACE(N)));
-bar(x1,f1/N);
-
-% Calculate the permutation-based p-value
-if ~isnan(mGq3_ACE(1))
-  p_mGTq3 = (N-n_mGTq3+1)/N;
+if any(isnan(mGq3_ACE))
+    
+    p_mGTq3 = NaN;
+    
 else
-  p_mGTq3 = NaN;
+    
+    f = f+1;
+    figure(f);
+    [smGTq3,omGTq3] = sort(mGq3_ACE);
+    ctl_val_mGTq3   = smGTq3(ctl_val_index);
+    [f1,x1]         = hist(smGTq3,100);
+    n_mGTq3         = min(find(smGTq3(:)==mGq3_ACE(N)));
+    bar(x1,f1/N);
+    
+    % Calculate the permutation-based p-value
+    p_mGTq3 = (N-n_mGTq3+1)/N;
+    
+    set(gca, 'xtick', 0)
+    if ctl_val_mGTq3==mGq3_ACE(N)
+        set(gca, 'xtick', ctl_val_mGTq3)
+    else
+        set(gca, 'xtick', sort([ctl_val_mGTq3 mGq3_ACE(N)]))
+    end
+    
+    title(sprintf('Empirical Distribution of Mean of h^2 > Q3(h^2), P-value=%.3f',p_mGTq3));
+    xlabel('mean of h^2 > Q3(h^2)');
+    hold on;
+    yLimits = get(gca,'YLim');
+    line([mGq3_ACE(N) mGq3_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
+    % Plot the critical threshold (red)
+    line([ctl_val_mGTq3 ctl_val_mGTq3],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
+    hold off;
+    set(gcf,'PaperPosition',[0 0 10 6])
+    set(gcf,'PaperSize',[10 6])
+    print('-dpdf',fullfile(ACEfit_Par.ResDir,'mGTq3.pdf'));
+    
 end
-
-
-set(gca, 'xtick', 0)
-if ctl_val_mGTq3==mGq3_ACE(N)
-    set(gca, 'xtick', ctl_val_mGTq3)
-else
-    set(gca, 'xtick', sort([ctl_val_mGTq3 mGq3_ACE(N)]))
-end
-
-title(sprintf('Empirical Distribution of Mean of h^2 > Q3(h^2), P-value=%.3f',p_mGTq3));
-xlabel('mean of h^2 > Q3(h^2)');
-hold on;
-yLimits = get(gca,'YLim');
-line([mGq3_ACE(N) mGq3_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
-% Plot the critical threshold (red)
-line([ctl_val_mGTq3 ctl_val_mGTq3],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
-hold off;
-set(gcf,'PaperPosition',[0 0 10 6])
-set(gcf,'PaperSize',[10 6])
-print('-dpdf',fullfile(ACEfit_Par.ResDir,'mGTq3.pdf'));
 
 
 Pvals_h2 = [p_MEAN p_wh2 p_MEDIAN p_Q3 p_mGTmedian p_mGTq3]';
@@ -297,12 +304,12 @@ if ~ACEfit_Par.NoImg
     FDR_Pval(ACEfit_Par.I_data') = fdrPval;
     
     % % Apply the threshold FDRalpha
-    % FDR_Pval((FDR_Pval>FDRalpha)) = 1;
+    % FDR_Pval(FDR_Pval>FDRalpha) = 1;
     
     % -log10(FDR corrected p-value) for voxels
     FDR_Pval = -log10(FDR_Pval);
     
-    fprintf('Minimum element-wise P_FDR is %.4f. \n \n', FDR_min);
+    fprintf('Minimum element-wise P_FDR is %.2f. \n \n', FDR_min);
     
     %
     % Voxel-wise FWE correction
@@ -321,7 +328,7 @@ if ~ACEfit_Par.NoImg
         end
     end
     
-    fprintf('Minimum element-wise P_FWE is %.4f. \n \n', 10.^(-max(corrPval_ACE)));
+    fprintf('Minimum element-wise P_FWE is %.2f. \n \n', 10.^(-max(corrPval_ACE)));
 
     %
     % Write out the output images
@@ -411,7 +418,7 @@ if ~ACEfit_Par.NoImg
         % Apply Tclus threshold
         Tstat(Tstat(:)<Tclus) = 0;
         
-        % Forming clusters
+        % Cluster-forming procedure
         [L,NUM] = spm_bwlabel(Tstat,18);
         
         if NUM>0

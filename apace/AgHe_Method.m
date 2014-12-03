@@ -2,9 +2,13 @@ function AgHe_Method(ACEfit_Par,Palpha,Balpha,varargin)
 %
 % Permutation & bootstrap inferences for AgHe (aka Steve's) method
 %
-% AgHe_Method(ACEfit_Par,Palpha,Balpha)          - Saves results
-% AgHe_Method(ACEfit_Par,Palpha,Balpha,'_Norm')  - Saves results with the suffix
+% AgHe_Method(ACEfit_Par,Palpha,Balpha)          - Save results
+% AgHe_Method(ACEfit_Par,Palpha,Balpha,'_Norm')  - Save results with the suffix
 %
+
+if size(ACEfit_Par.Y,1)==1
+    error('Aggregate heritability is designed for multiple phenotypes!')
+end
 
 if nargin<=3
     ResSuf = '';
@@ -21,16 +25,10 @@ nFam  = ACEfit_Par.nFam;
 cFam  = [1; cumsum(nFam)+1];
 cFam  = cFam(1:end-1);
 
-
 %
 % Compute the OLS residuals, with appropriate normalisation
 %
 Res = ACEfit_Par.Y' - ACEfit_Par.X*pinv(ACEfit_Par.X)*ACEfit_Par.Y';
-% if ACEfit_Par.AggNlz
-%     Res = ACEfit_Par.Y' - ACEfit_Par.X*pinv(ACEfit_Par.X)*ACEfit_Par.Y';
-% else
-%     Res = ACEfit_Par.Y';
-% end
 
 switch(ACEfit_Par.AggNlz)
     case 1
@@ -151,8 +149,15 @@ Est_MZDZ  = mean(rMZo) - mean(rDZo);
 Est_DZSib = mean(rDZo) - mean(rSibo);
 
 
-f=max(get(0,'Children'))+1;
-if isempty(f); f=1; end
+
+f = get(0,'Children');
+if isempty(f)
+    f = 1;
+else
+    f = length(f)+1;
+    % f = max(f)+1;
+end
+
 figure(f); 
 % AgHe box plots
 Z = [rMZo;                  rDZo;                 rSibo                  ];
@@ -163,7 +168,7 @@ set(gca, 'XTick', [1; 2; 3]);
 set(gca, 'XTickLabel', {'MZ'; 'DZ'; 'SIB'});
 set(gcf,'PaperPosition',[0 0 10 6])
 set(gcf,'PaperSize',[10 6])
-print('-dpdf',fullfile(ACEfit_Par.ResDir, 'AgHe_CorrPlots.pdf'));
+print('-dpdf',fullfile(ACEfit_Par.ResDir,'AgHe_CorrPlots.pdf'));
 
 
 

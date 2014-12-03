@@ -1,6 +1,6 @@
 function PrepParallel(ACEfit_Par,nParallel)
 %
-% Update the input structure array
+% Update the input structure array 'ACEfit_Par' for parallelization
 %
 % nParallel - Number of parallel runs
 %
@@ -23,7 +23,7 @@ nSG   = ACEfit_Par.nSG;
 if nPerm>0
     
     if rem(nPerm,nParallel)
-        error('''nPerm'' cannot be divided evenly by ''nParallel''!!')
+        error('''nPerm'' cannot be evenly divided by ''nParallel''!!')
     end
     
     ACEfit_Par.nPermPerRun = ones(nParallel,1)*nPerm/nParallel;
@@ -39,7 +39,7 @@ end
 if nBoot>0
     
     if rem(nBoot,nParallel)
-        error('''nBoot'' cannot be divided evenly by ''nParallel''!!')
+        error('''nBoot'' cannot be evenly divided by ''nParallel''!!')
     end
     
     ACEfit_Par.nBootPerRun = ones(nParallel,1)*nBoot/nParallel;

@@ -6,9 +6,16 @@ function Perm_index = CreatePerm(nG1,nG2,nPerm)
 % nG2    - number of subjects or subject pairs in group 2
 % nPerm  - number of permutations
 %
-if nPerm>mynchoosek(nG1+nG2,nG1)
-    error('Too many permutations!  Please set ''nPerm'' to %d or smaller',nchoosek(nG1+nG2,nG1))
+
+% Number of relabelings
+N = nchoosek(nG1+nG2,nG1) - 1;
+if nPerm>N
+    error('Too many permutations! Please set ''nPerm'' to %d or smaller',N)
 end
+% N = mynchoosek(nG1+nG2,nG1) - 1;
+% if nPerm>N
+%     error('Too many permutations! Please set ''nPerm'' to %d or smaller',N)
+% end
 
 Perm_index = zeros(nPerm,nG1+nG2);
 

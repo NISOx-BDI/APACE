@@ -1,19 +1,19 @@
 function [hh,HH] = LRSD_ACE_FAM(I_MZ,I_DZ,I_Sib,Res,XTX,pinvXTX,sigma2)
 %
-% Heritability estimation by LR-SD using residuals
+% Heritability estimation using LR-SD with residuals
 %
 % INPUTS:
 % I_MZ    - Index for MZ twin pairs
 % I_DZ    - Index for DZ twin pairs
 % I_Sib   - Index for sibling pairs
-% Res     - Residuals from regressing the original data Y on X with OLS.
+% Res     - Residuals from regressing the original data Y on X with OLS
 % XTX     - X'*X
 % pinvXTX - pinv(X'*X)
-% sigma2  - Residual sum of squares (RSS)
+% sigma2  - variance estimator associated with residual sum of squares (RSS)
 %
 % OUTPUTS:
-% hh      - Parameter estimate
-% HH      - 4 possible estimates [E AE CE ACE]
+% hh      - Variance parameter estimate
+% HH      - The parameter estimates with the use of 4 models [E AE CE ACE]
 %
 
 % 4 possible models
