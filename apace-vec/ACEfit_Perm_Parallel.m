@@ -23,7 +23,7 @@ for k=RunID
     
     for j=1:nPermPerRun
         
-        fprintf('%d',j);
+        if ~rem(j,50); fprintf('%d ',j); end
         
         Perm_label = index(j,:);
         
@@ -46,6 +46,8 @@ for k=RunID
         MGQ3H2(j)  = SummaryA(6);
         
     end
+
+    fprintf('\n')
     
     str = fullfile(ACEfit_Par.ResDir,'ACEfit_Parallel');
     if ~ACEfit_Par.NoImg

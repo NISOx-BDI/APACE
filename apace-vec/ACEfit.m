@@ -260,6 +260,4 @@ WriteData(e2,           ACEfit_Par.Vs, 'ACE_E_e2', ACEfit_Par.ResDir);
 WriteData(sqrt(Sigma2), ACEfit_Par.Vs, 'Stdev',    ACEfit_Par.ResDir);
 
 
-fprintf('.\n');
-
 return

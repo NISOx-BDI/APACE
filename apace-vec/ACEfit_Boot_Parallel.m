@@ -18,7 +18,7 @@ for k=RunID
     
     for j=1:nBootPerRun
         
-        fprintf('%d',j);
+        if ~rem(j,50); fprintf('%d ',j); end
         
         rand_pair = index(j,:);
         [Boot_label, Boot_kin] = deal([]);
@@ -52,6 +52,8 @@ for k=RunID
         MGQ3E2(j)  = SummaryE(6);
         
     end
+    
+    fprintf('\n')
     
     str = fullfile(ACEfit_Par.ResDir,'BootCI_Parallel');
     save(sprintf('%s_%04d',str,k),'nBootPerRun','MEANH2','WH2','MEDH2','Q3H2','MGMEDH2','MGQ3H2',...

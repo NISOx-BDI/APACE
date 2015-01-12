@@ -173,8 +173,6 @@ mGq3h2   = mean(h2(h2>q3h2));
 % Summary statistics: meanh2, wh2, median, q3, mean(h2>median), mean(h2>q3)
 SummaryA = [meanh2; wh2; medh2; q3h2; mGmedh2; mGq3h2];
 
-fprintf('.\n');
-
 return
 
 
