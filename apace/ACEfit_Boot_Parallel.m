@@ -69,10 +69,7 @@ for k=RunID
             
             for j=1:nBootPerRun
                 
-                if rem(j,10)==0
-                    fprintf('%d ',j);
-                end
-                % fprintf('%d',j);
+                if rem(j,50)==0; fprintf('%d ',j); end
                 
                 rand_pair = index(j,:);
                 [Boot_label, Boot_kin] = deal([]);
