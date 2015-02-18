@@ -253,7 +253,7 @@ if ACEfit_Par.nPerm>0
         set(gca, 'xtick', sort([ctl_val_t_stats_MZ_DZ t_stats_MZ_DZ(N)]))
     end
     
-    title(sprintf('Empirical distribution of two-sample t-statistic for rMZ & rDZ, P-value=%.3f',p_t_stats_MZ_DZ));
+    title(sprintf('H0 dist of two-sample t-statistic for rMZ & rDZ, P-value=%.3f',p_t_stats_MZ_DZ));
     xlabel('t-statistic for rMZ vs. rDZ');
     ylabel('frequency');
     hold on;
@@ -263,7 +263,7 @@ if ACEfit_Par.nPerm>0
     hold off;
     set(gcf,'PaperPosition',[0 0 10 6])
     set(gcf,'PaperSize',[10 6])
-    print('-dpdf',fullfile(ACEfit_Par.ResDir,['Tstat_rMZ_rDZ' ResSuf '.pdf']));
+    print('-dpdf',fullfile(ACEfit_Par.ResDir,['H0dist_Tstat_rMZ_rDZ' ResSuf '.pdf']));
     
     
     f = f+1;
@@ -284,7 +284,7 @@ if ACEfit_Par.nPerm>0
         set(gca, 'xtick', sort([ctl_val_t_stats_DZ_Sib t_stats_DZ_Sib(N)]))
     end
     
-    title(sprintf('Empirical distribution of two-sample t-statistic for rDZ & rSib, P-value=%.3f',p_t_stats_DZ_Sib));
+    title(sprintf('H0 dist of two-sample t-statistic for rDZ & rSib, P-value=%.3f',p_t_stats_DZ_Sib));
     xlabel('t-statistic for rDZ vs. rSib');
     ylabel('frequency');
     hold on;
@@ -294,7 +294,7 @@ if ACEfit_Par.nPerm>0
     hold off;
     set(gcf,'PaperPosition',[0 0 10 6])
     set(gcf,'PaperSize',[10 6])
-    print('-dpdf',fullfile(ACEfit_Par.ResDir,['Tstat_rDZ_rSib' ResSuf '.pdf']));
+    print('-dpdf',fullfile(ACEfit_Par.ResDir,['H0dist_Tstat_rDZ_rSib' ResSuf '.pdf']));
     
     
     %
@@ -318,7 +318,7 @@ if ACEfit_Par.nPerm>0
         set(gca, 'xtick', sort([ctl_val_CorrDiff_MZ_DZ CorrDiff_MZ_DZ(N)]))
     end
     
-    title(sprintf('Empirical distribution of mean difference between rMZ & rDZ, P-value=%.3f',p_CorrDiff_MZ_DZ));
+    title(sprintf('H0 dist of mean difference between rMZ & rDZ, P-value=%.3f',p_CorrDiff_MZ_DZ));
     xlabel('E(rMZ) - E(rDZ)');
     ylabel('frequency');
     hold on;
@@ -328,7 +328,7 @@ if ACEfit_Par.nPerm>0
     hold off;
     set(gcf,'PaperPosition',[0 0 10 6])
     set(gcf,'PaperSize',[10 6])
-    print('-dpdf',fullfile(ACEfit_Par.ResDir,['Diff_rMZ_rDZ' ResSuf '.pdf']));
+    print('-dpdf',fullfile(ACEfit_Par.ResDir,['H0dist_Diff_rMZ_rDZ' ResSuf '.pdf']));
     
     
     f = f+1;
@@ -349,7 +349,7 @@ if ACEfit_Par.nPerm>0
         set(gca, 'xtick', sort([ctl_val_CorrDiff_DZ_Sib CorrDiff_DZ_Sib(N)]))
     end
     
-    title(sprintf('Empirical distribution of mean difference between rDZ & rSib, P-value=%.3f',p_CorrDiff_DZ_Sib));
+    title(sprintf('H0 dist of mean difference between rDZ & rSib, P-value=%.3f',p_CorrDiff_DZ_Sib));
     xlabel('E[rDZ-rSib]');
     ylabel('frequency');
     hold on;
@@ -359,7 +359,7 @@ if ACEfit_Par.nPerm>0
     hold off;
     set(gcf,'PaperPosition',[0 0 10 6])
     set(gcf,'PaperSize',[10 6])
-    print('-dpdf',fullfile(ACEfit_Par.ResDir,['Diff_rDZ_rSib' ResSuf '.pdf']));
+    print('-dpdf',fullfile(ACEfit_Par.ResDir,['H0dist_Diff_rDZ_rSib' ResSuf '.pdf']));
     
     
     Pvals_MZDZ  = [p_t_stats_MZ_DZ  p_CorrDiff_MZ_DZ]';

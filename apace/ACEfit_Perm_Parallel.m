@@ -23,9 +23,7 @@ for k=RunID
     
     for j=1:nPermPerRun
         
-        if rem(j,10)==0
-            fprintf('%d ',j);
-        end
+        if rem(j,50)==0; fprintf('%d ',j); end
         
         Perm_label = index(j,:);
         
