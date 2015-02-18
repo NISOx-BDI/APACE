@@ -189,6 +189,4 @@ switch upper(ACEfit_Par.Model)
         
 end
 
-fprintf('.\n');
-
 return

@@ -26,7 +26,6 @@ for k=RunID
         if rem(j,10)==0
             fprintf('%d ',j);
         end
-        % fprintf('%d',j);
         
         Perm_label = index(j,:);
         
@@ -63,4 +62,5 @@ for k=RunID
     
 end
 
+fprintf('\n');
 return

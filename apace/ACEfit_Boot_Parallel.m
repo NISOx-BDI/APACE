@@ -25,7 +25,6 @@ for k=RunID
                 if rem(j,10)==0
                     fprintf('%d ',j);
                 end
-                % fprintf('%d',j);
                 
                 rand_pair = index(j,:);
                 [Boot_label, Boot_kin] = deal([]);
@@ -112,4 +111,5 @@ for k=RunID
     
 end
 
+fprintf('\n');
 return
