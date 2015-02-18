@@ -28,7 +28,7 @@ else
     set(gca, 'xtick', sort([ctl_val_MEAN mean_ACE(N)]))
 end
 
-title(sprintf('Empirical Distribution of Mean of h^2, P-value=%.3f',p_MEAN));
+title(sprintf('H0 dist of Mean of h^2, P-value=%.3f',p_MEAN));
 xlabel('mean of h^2');
 hold on;
 yLimits = get(gca,'YLim');
@@ -38,7 +38,7 @@ line([ctl_val_MEAN ctl_val_MEAN],[0 yLimits(2)],'Marker','.','LineStyle','-.','C
 hold off;
 set(gcf,'PaperPosition',[0 0 10 6])
 set(gcf,'PaperSize',[10 6])
-print('-dpdf',fullfile(ACEfit_Par.ResDir,'mean.pdf'));
+print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_mean.pdf'));
 
 
 %%% (2) wh2
@@ -60,7 +60,7 @@ else
     set(gca, 'xtick', sort([ctl_val_wh2 wh2_ACE(N)]))
 end
 
-title(sprintf('Empirical Distribution of Weighted Mean of h^2, P-value=%.3f',p_wh2));
+title(sprintf('H0 dist of Weighted Mean of h^2, P-value=%.3f',p_wh2));
 xlabel('weighted mean of h^2');
 hold on;
 yLimits = get(gca,'YLim');
@@ -70,7 +70,7 @@ line([ctl_val_wh2 ctl_val_wh2],[0 yLimits(2)],'Marker','.','LineStyle','-.','Col
 hold off;
 set(gcf,'PaperPosition',[0 0 10 6])
 set(gcf,'PaperSize',[10 6])
-print('-dpdf',fullfile(ACEfit_Par.ResDir,'wh2.pdf'));
+print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_wh2.pdf'));
 
 
 %%% (3) MEDIAN
@@ -92,7 +92,7 @@ else
     set(gca, 'xtick', sort([ctl_val_MEDIAN med_ACE(N)]))
 end
 
-title(sprintf('Empirical Distribution of Median (Q2) of h^2, P-value=%.3f',p_MEDIAN));
+title(sprintf('H0 dist of Median (Q2) of h^2, P-value=%.3f',p_MEDIAN));
 xlabel('Q2 of h^2');
 hold on;
 yLimits = get(gca,'YLim');
@@ -102,7 +102,7 @@ line([ctl_val_MEDIAN ctl_val_MEDIAN],[0 yLimits(2)],'Marker','.','LineStyle','-.
 hold off;
 set(gcf,'PaperPosition',[0 0 10 6])
 set(gcf,'PaperSize',[10 6])
-print('-dpdf',fullfile(ACEfit_Par.ResDir,'median.pdf'));
+print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_median.pdf'));
 
 
 %%% (4) Q3
@@ -124,7 +124,7 @@ else
     set(gca, 'xtick', sort([ctl_val_Q3 q3_ACE(N)]))
 end
 
-title(sprintf('Empirical Distribution of Third Quartile (Q3) of h^2, P-value=%.3f',p_Q3));
+title(sprintf('H0 dist of Third Quartile (Q3) of h^2, P-value=%.3f',p_Q3));
 xlabel('Q3 of h^2');
 hold on;
 yLimits = get(gca,'YLim');
@@ -134,87 +134,71 @@ line([ctl_val_Q3 ctl_val_Q3],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color
 hold off;
 set(gcf,'PaperPosition',[0 0 10 6])
 set(gcf,'PaperSize',[10 6])
-print('-dpdf',fullfile(ACEfit_Par.ResDir,'q3.pdf'));
+print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_q3.pdf'));
 
 
 %%% (5) mean(>median)
-if any(isnan(mGmed_ACE))
-    
-    p_mGTmedian = NaN;
-    
-else
-    
-    f = f+1;
-    figure(f);
-    [smGTmedian,omGTmedian] = sort(mGmed_ACE);
-    ctl_val_mGTmedian       = smGTmedian(ctl_val_index);
-    [f1,x1]                 = hist(smGTmedian,100);
-    n_mGTmedian             = min(find(smGTmedian(:)==mGmed_ACE(N)));
-    bar(x1,f1/N);
-    
-    % Calculate the permutation-based p-value
-    p_mGTmedian = (N-n_mGTmedian+1)/N;
-    
-    set(gca, 'xtick', 0)
-    if ctl_val_mGTmedian==mGmed_ACE(N)
-        set(gca, 'xtick', ctl_val_mGTmedian)
-    else
-        set(gca, 'xtick', sort([ctl_val_mGTmedian mGmed_ACE(N)]))
-    end
-    
-    title(sprintf('Empirical Distribution of Mean of h^2 > Q2(h^2), P-value=%.3f',p_mGTmedian));
-    xlabel('mean of h^2 > Q2(h^2)');
-    hold on;
-    yLimits = get(gca,'YLim');
-    line([mGmed_ACE(N) mGmed_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
-    % Plot the critical threshold (red)
-    line([ctl_val_mGTmedian ctl_val_mGTmedian],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
-    hold off;
-    set(gcf,'PaperPosition',[0 0 10 6])
-    set(gcf,'PaperSize',[10 6])
-    print('-dpdf',fullfile(ACEfit_Par.ResDir,'mGTmedian.pdf'));
+f = f+1;
+figure(f);
+[smGTmedian,omGTmedian] = sort(mGmed_ACE);
+ctl_val_mGTmedian       = smGTmedian(ctl_val_index);
+[f1,x1]                 = hist(smGTmedian,100);
+n_mGTmedian             = min(find(smGTmedian(:)==mGmed_ACE(N)));
+bar(x1,f1/N);
 
+% Calculate the permutation-based p-value
+p_mGTmedian = (N-n_mGTmedian+1)/N;
+
+set(gca, 'xtick', 0)
+if ctl_val_mGTmedian==mGmed_ACE(N)
+    set(gca, 'xtick', ctl_val_mGTmedian)
+else
+    set(gca, 'xtick', sort([ctl_val_mGTmedian mGmed_ACE(N)]))
 end
+
+title(sprintf('H0 dist of Mean of h^2 > Q2(h^2), P-value=%.3f',p_mGTmedian));
+xlabel('mean of h^2 > Q2(h^2)');
+hold on;
+yLimits = get(gca,'YLim');
+line([mGmed_ACE(N) mGmed_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
+% Plot the critical threshold (red)
+line([ctl_val_mGTmedian ctl_val_mGTmedian],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
+hold off;
+set(gcf,'PaperPosition',[0 0 10 6])
+set(gcf,'PaperSize',[10 6])
+print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_mGTmedian.pdf'));
 
 
 %%% (6) mean(>q3)
-if any(isnan(mGq3_ACE))
-    
-    p_mGTq3 = NaN;
-    
+f = f+1;
+figure(f);
+[smGTq3,omGTq3] = sort(mGq3_ACE);
+ctl_val_mGTq3   = smGTq3(ctl_val_index);
+[f1,x1]         = hist(smGTq3,100);
+n_mGTq3         = min(find(smGTq3(:)==mGq3_ACE(N)));
+bar(x1,f1/N);
+
+% Calculate the permutation-based p-value
+p_mGTq3 = (N-n_mGTq3+1)/N;
+
+set(gca, 'xtick', 0)
+if ctl_val_mGTq3==mGq3_ACE(N)
+    set(gca, 'xtick', ctl_val_mGTq3)
 else
-    
-    f = f+1;
-    figure(f);
-    [smGTq3,omGTq3] = sort(mGq3_ACE);
-    ctl_val_mGTq3   = smGTq3(ctl_val_index);
-    [f1,x1]         = hist(smGTq3,100);
-    n_mGTq3         = min(find(smGTq3(:)==mGq3_ACE(N)));
-    bar(x1,f1/N);
-    
-    % Calculate the permutation-based p-value
-    p_mGTq3 = (N-n_mGTq3+1)/N;
-    
-    set(gca, 'xtick', 0)
-    if ctl_val_mGTq3==mGq3_ACE(N)
-        set(gca, 'xtick', ctl_val_mGTq3)
-    else
-        set(gca, 'xtick', sort([ctl_val_mGTq3 mGq3_ACE(N)]))
-    end
-    
-    title(sprintf('Empirical Distribution of Mean of h^2 > Q3(h^2), P-value=%.3f',p_mGTq3));
-    xlabel('mean of h^2 > Q3(h^2)');
-    hold on;
-    yLimits = get(gca,'YLim');
-    line([mGq3_ACE(N) mGq3_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
-    % Plot the critical threshold (red)
-    line([ctl_val_mGTq3 ctl_val_mGTq3],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
-    hold off;
-    set(gcf,'PaperPosition',[0 0 10 6])
-    set(gcf,'PaperSize',[10 6])
-    print('-dpdf',fullfile(ACEfit_Par.ResDir,'mGTq3.pdf'));
-    
+    set(gca, 'xtick', sort([ctl_val_mGTq3 mGq3_ACE(N)]))
 end
+
+title(sprintf('H0 dist of Mean of h^2 > Q3(h^2), P-value=%.3f',p_mGTq3));
+xlabel('mean of h^2 > Q3(h^2)');
+hold on;
+yLimits = get(gca,'YLim');
+line([mGq3_ACE(N) mGq3_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
+% Plot the critical threshold (red)
+line([ctl_val_mGTq3 ctl_val_mGTq3],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
+hold off;
+set(gcf,'PaperPosition',[0 0 10 6])
+set(gcf,'PaperSize',[10 6])
+print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_mGTq3.pdf'));
 
 
 Pvals_h2 = [p_MEAN p_wh2 p_MEDIAN p_Q3 p_mGTmedian p_mGTq3]';
@@ -243,7 +227,7 @@ if ~ACEfit_Par.NoImg
         set(gca, 'xtick', sort([ctl_val_T max_T_ACE(N)]))
     end
     
-    title(sprintf('Empirical Distribution of Maximum LRT Statistic (T), FWE P-value=%.3f',p_T));
+    title(sprintf('H0 dist of Maximum LRT Statistic (T), FWE P-value=%.3f',p_T));
     xlabel('T');
     ylabel('f(T)');
     hold on;
@@ -254,7 +238,7 @@ if ~ACEfit_Par.NoImg
     hold off;
     set(gcf,'PaperPosition',[0 0 10 6])
     set(gcf,'PaperSize',[10 6])
-    print('-dpdf',fullfile(ACEfit_Par.ResDir,'test_statistic.pdf'));
+    print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0_test_statistic.pdf'));
     
     fprintf('The %.2f level critical threshold for the maximum LRT statistic is %8.3f. \n \n', FWEalpha, ctl_val_T);
     
@@ -358,7 +342,7 @@ if ~ACEfit_Par.NoImg
             set(gca, 'xtick', sort([ctl_val_K max_K_ACE(N)]))
         end
         
-        title(sprintf('Empirical Distribution of Maximum Suprathreshold Cluster Size (K), FWE P-value=%.3f',p_K));
+        title(sprintf('H0 dist of Maximum Suprathreshold Cluster Size (K), FWE P-value=%.3f',p_K));
         xlabel('K');
         ylabel('f(K)');
         hold on;
@@ -369,7 +353,7 @@ if ~ACEfit_Par.NoImg
         hold off;
         set(gcf,'PaperPosition',[0 0 10 6])
         set(gcf,'PaperSize',[10 6])
-        print('-dpdf',fullfile(ACEfit_Par.ResDir,'cluster_size.pdf'));
+        print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_cluster_size.pdf'));
         
         
         %%% (10) Maximum Suprathreshold Cluster Mass M
@@ -391,7 +375,7 @@ if ~ACEfit_Par.NoImg
             set(gca, 'xtick', sort([ctl_val_M max_M_ACE(N)]))
         end
         
-        title(sprintf('Empirical Distribution of Maximum Suprathreshold Cluster Mass (M), FWE P-value = %.3f',p_M));
+        title(sprintf('H0 dist of Maximum Suprathreshold Cluster Mass (M), FWE P-value = %.3f',p_M));
         xlabel('M');
         ylabel('f(M)');
         hold on;
@@ -402,7 +386,7 @@ if ~ACEfit_Par.NoImg
         hold off;
         set(gcf,'PaperPosition',[0 0 10 6])
         set(gcf,'PaperSize',[10 6])
-        print('-dpdf',fullfile(ACEfit_Par.ResDir,'cluster_mass.pdf'));
+        print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_cluster_mass.pdf'));
         
         fprintf('The %.2f level critical threshold for the maximum suprathreshold cluster size is %d. \n',    FWEalpha, ctl_val_K);
         fprintf('The %.2f level critical threshold for the maximum suprathreshold cluster mass is %8.3f. \n', FWEalpha, ctl_val_M);

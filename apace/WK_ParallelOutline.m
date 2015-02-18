@@ -7,11 +7,7 @@
 % % windows that get created.
 % set(0, 'DefaultFigureVisible', 'off');
 
-
 %%% 1) Create a structure array specifying details of data
-ACEfit_Par.Model   = 'ACE';             % Choose a model (AE or ACE) for 
-                                        % data fitting.
-
 ACEfit_Par.P_nm    = 'APACE_imgs.txt';  % A list of images or other data
                                         % specification; see FileFormats.txt
                                         
@@ -28,12 +24,6 @@ ACEfit_Par.InfMx   = 'KinInf.csv';      % Kinship information matrix of 4
 ACEfit_Par.ResDir  = '/my/path/ResDir';
 
 %%% The rest are optional; omit to use default values
-
-ACEfit_Par.Subset  = [];                % Set equal to (subset of)
-                                        % subject indicies to be
-                                        % considered in the
-                                        % analysis. Empty (default) means
-                                        % "all subjects".
 
 ACEfit_Par.Pmask   = 'APACE_mask.nii';  % Brain mask image (default: whole volume)
 
@@ -97,6 +87,7 @@ ACEfit_Par = PrepData(ACEfit_Par);
 ACEfit_Par.alpha_CFT = [];              % Cluster-forming threshold (default: 0.05)
 
 ACEfit_Par = ACEfit(ACEfit_Par);
+
 %%% 4) Add permutation and bootstrapping information, and save "ACEfit_Par.mat"
 ACEfit_Par.nPerm = 1000;                % Number of permutations
 ACEfit_Par.nBoot = 1000;                % Number of bootstrap replicates
@@ -106,7 +97,7 @@ PrepParallel(ACEfit_Par,nParallel);
 
 
 %
-% Permutation inference for computing FWE-corrected p-values
+% Permutations
 %
 
 if ACEfit_Par.nPerm>0
@@ -137,7 +128,7 @@ end
 
 
 %
-% Bootstrapping inference for constructing CIs
+% Bootstrapping
 %
 
 if ACEfit_Par.nBoot>0
@@ -167,8 +158,8 @@ end
 
 
 %
-% Aggregate heritability (aka "Steve's method") for multiple phenotypes, 
-% with P-values via permutation and CI's via boostrapping.
+% Aggregate heritability (aka "Steve's method"), with P-values via
+% permutation and CI's via boostrapping.
 %
 % Note that permuation (steps 1-3) and bootstrapping (steps 1-3) can be
 % skipped by setting ACEfit_Par.nPerm=0 and ACEfit_Par.nBoot=0 separately; 
@@ -178,7 +169,7 @@ load(fullfile(ACEfit_Par.ResDir,'ACEfit_Par.mat'));
 Palpha = 0.05; % Significance threhold for permutations (plotting only)
 Balpha = 0.05; % Confidence level, where CI's have level 100*(1-alpha)
 
-AgHe_Method(ACEfit_Par,Palpha,Balpha)     
+AgHe_Method(ACEfit_Par,Palpha,Balpha)
 % % Once with no variance normalisation
 % ACEfit_Par.AggNlz  = 0;   % de-meaning only
 % AgHe_Method(ACEfit_Par,Palpha,Balpha,'_NoNorm')
