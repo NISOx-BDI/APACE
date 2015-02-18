@@ -5,11 +5,20 @@ function ACEfit_Par = ProcData(ACEfit_Par,Y,YM)
 
 [nElm,n] = size(Y);
 
+if ~isfield(ACEfit_Par,'Subset') || isempty(ACEfit_Par.Subset)
+  ACEfit_Par.Subset = 1:n;
+end
+
+Subset = ACEfit_Par.Subset;
+
 X = ACEfit_Par.Dsnmtx;
 if isempty(X)
     X = ones(n,1);
 elseif ischar(X)
     X = load(X);
+    X = X(Subset,:);
+else
+    X = X(Subset,:);
 end
 if size(X,1)~=n
     error('Design matrix has wrong size! Expect %d rows, found %d. \n',n,size(X,1))

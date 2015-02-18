@@ -29,6 +29,12 @@ ACEfit_Par.ResDir  = '/my/path/ResDir';
 
 %%% The rest are optional; omit to use default values
 
+ACEfit_Par.Subset  = [];                % Set equal to (subset of)
+                                        % subject indicies to be
+                                        % considered in the
+                                        % analysis. Empty (default) means
+                                        % "all subjects".
+
 ACEfit_Par.Pmask   = 'APACE_mask.nii';  % Brain mask image (default: whole volume)
 
 ACEfit_Par.Dsnmtx  = '';                % Design matrix (default: all-ones vector)
