@@ -6,6 +6,10 @@ function AgHe_Method(ACEfit_Par,Palpha,Balpha,varargin)
 % AgHe_Method(ACEfit_Par,Palpha,Balpha,'_Norm')  - Save results with the suffix
 %
 
+if size(ACEfit_Par.Y,1)==1
+    error('Aggregate heritability is designed for multiple phenotypes!')
+end
+
 if nargin<=3
     ResSuf = '';
 else
@@ -20,7 +24,6 @@ nSibF = ACEfit_Par.nSibF;
 nFam  = ACEfit_Par.nFam;
 cFam  = [1; cumsum(nFam)+1];
 cFam  = cFam(1:end-1);
-
 
 %
 % Compute the OLS residuals, with appropriate normalisation
@@ -146,6 +149,7 @@ Est_MZDZ  = mean(rMZo) - mean(rDZo);
 Est_DZSib = mean(rDZo) - mean(rSibo);
 
 
+
 f = get(0,'Children');
 if isempty(f)
     f = 1;
@@ -154,7 +158,7 @@ else
     % f = max(f)+1;
 end
 
-figure(f);
+figure(f); 
 % AgHe box plots
 Z = [rMZo;                  rDZo;                 rSibo                  ];
 g = [zeros(length(rMZo),1); ones(length(rDZo),1); 2*ones(length(rSibo),1)];
