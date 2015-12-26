@@ -1,16 +1,15 @@
 function ACEfit_Par = ACEfit(ACEfit_Par)
 %
 % Element- or voxel-wise phenotypic heritability estimation using LR-SD and
-% heritability inference with likelihood ratio test (LRT). 
-% 
+% heritability inference with likelihood ratio test (LRT).
+%
 % The LRT statistic is chosen as the test statistic rather than h2
-% estimator as theoretically h2 estimator is not sufficient nor pivotal 
+% estimator as theoretically h2 estimator is not sufficient nor pivotal
 % while LRT statistic is pivotal. The distribution of LRT statistic does not
 % depend on unknown nuisance parameters and remains the same under the null
-% hypothesis, and thus the pivotal test statistic is recommendated in 
+% hypothesis, and thus the pivotal test statistic is recommendated in
 % permutation test.
 %
-
 
 X = ACEfit_Par.X;
 Y = ACEfit_Par.Y;

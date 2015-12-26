@@ -7,7 +7,6 @@
 % % windows that get created.
 % set(0, 'DefaultFigureVisible', 'off');
 
-
 %%% 1) Create a structure array specifying details of data
 ACEfit_Par.Model   = 'ACE';             % Choose a model (AE or ACE) for 
                                         % data fitting.
@@ -95,8 +94,8 @@ ACEfit_Par = PrepData(ACEfit_Par);
 
 %%% 3) Run the original data once
 ACEfit_Par.alpha_CFT = [];              % Cluster-forming threshold (default: 0.05)
-
 ACEfit_Par = ACEfit(ACEfit_Par);
+
 %%% 4) Add permutation and bootstrapping information, and save "ACEfit_Par.mat"
 ACEfit_Par.nPerm = 1000;                % Number of permutations
 ACEfit_Par.nBoot = 1000;                % Number of bootstrap replicates
@@ -178,7 +177,7 @@ load(fullfile(ACEfit_Par.ResDir,'ACEfit_Par.mat'));
 Palpha = 0.05; % Significance threhold for permutations (plotting only)
 Balpha = 0.05; % Confidence level, where CI's have level 100*(1-alpha)
 
-AgHe_Method(ACEfit_Par,Palpha,Balpha)     
+AgHe_Method(ACEfit_Par,Palpha,Balpha)
 % % Once with no variance normalisation
 % ACEfit_Par.AggNlz  = 0;   % de-meaning only
 % AgHe_Method(ACEfit_Par,Palpha,Balpha,'_NoNorm')
