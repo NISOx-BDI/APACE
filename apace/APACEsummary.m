@@ -23,32 +23,67 @@ end
 Names = {'Mean','VarWtMean','AgHe','Median Q2','Q3','Mean(>Q2)','Mean(>Q3)'};
 % Names = {'Mean','VarWtMean','AgHeNorm','AgHeNoNorm','Median Q2','Q3','Mean(>Q2)','Mean(>Q3)'};
 
-E_s = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe'));        % Est_MZDZ Est_DZSib
-% Ne = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe_Norm'));         
-% Oe = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe_NoNorm'));       
+if exist(fullfile(ACEfit_Par.ResDir,'Ests_AgHe.mat'),'file')
+    E_s = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe'));        % Est_MZDZ Est_DZSib
+    % Ne = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe_Norm'));
+    % Oe = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe_NoNorm'));
+else
+    E_s.Est_MZDZ  = NaN;
+    E_s.Est_DZSib = NaN;
+end
 
-Ests = [ ACEfit_Par.SummaryA(1), ACEfit_Par.SummaryC(1), ACEfit_Par.SummaryE(1) ;
-         ACEfit_Par.SummaryA(2), ACEfit_Par.SummaryC(2), ACEfit_Par.SummaryE(2) ;
-         E_s.Est_MZDZ*2,         E_s.Est_DZSib,          NaN                    ;
-         ACEfit_Par.SummaryA(3), ACEfit_Par.SummaryC(3), ACEfit_Par.SummaryE(3) ;
-         ACEfit_Par.SummaryA(4), ACEfit_Par.SummaryC(4), ACEfit_Par.SummaryE(4) ;
-         ACEfit_Par.SummaryA(5), ACEfit_Par.SummaryC(5), ACEfit_Par.SummaryE(5) ;
-         ACEfit_Par.SummaryA(6), ACEfit_Par.SummaryC(6), ACEfit_Par.SummaryE(6) ];
-% Ests = [ ACEfit_Par.SummaryA(1), ACEfit_Par.SummaryC(1), ACEfit_Par.SummaryE(1) ;
-%          ACEfit_Par.SummaryA(2), ACEfit_Par.SummaryC(2), ACEfit_Par.SummaryE(2) ;
-%          Ne.Est_MZDZ*2,          Ne.Est_DZSib,           NaN                    ;
-%          Oe.Est_MZDZ*2,          Oe.Est_DZSib,           NaN                    ;
-%          ACEfit_Par.SummaryA(3), ACEfit_Par.SummaryC(3), ACEfit_Par.SummaryE(3) ;
-%          ACEfit_Par.SummaryA(4), ACEfit_Par.SummaryC(4), ACEfit_Par.SummaryE(4) ;
-%          ACEfit_Par.SummaryA(5), ACEfit_Par.SummaryC(5), ACEfit_Par.SummaryE(5) ;
-%          ACEfit_Par.SummaryA(6), ACEfit_Par.SummaryC(6), ACEfit_Par.SummaryE(6) ];
+switch upper(ACEfit_Par.Model)
+    
+    case 'ACE'
+        
+        Ests = [ ACEfit_Par.SummaryA(1), ACEfit_Par.SummaryC(1), ACEfit_Par.SummaryE(1) ;
+                 ACEfit_Par.SummaryA(2), ACEfit_Par.SummaryC(2), ACEfit_Par.SummaryE(2) ;
+                 E_s.Est_MZDZ*2,         E_s.Est_DZSib,          NaN                    ;
+                 ACEfit_Par.SummaryA(3), ACEfit_Par.SummaryC(3), ACEfit_Par.SummaryE(3) ;
+                 ACEfit_Par.SummaryA(4), ACEfit_Par.SummaryC(4), ACEfit_Par.SummaryE(4) ;
+                 ACEfit_Par.SummaryA(5), ACEfit_Par.SummaryC(5), ACEfit_Par.SummaryE(5) ;
+                 ACEfit_Par.SummaryA(6), ACEfit_Par.SummaryC(6), ACEfit_Par.SummaryE(6) ];
+        % Ests = [ ACEfit_Par.SummaryA(1), ACEfit_Par.SummaryC(1), ACEfit_Par.SummaryE(1) ;
+        %          ACEfit_Par.SummaryA(2), ACEfit_Par.SummaryC(2), ACEfit_Par.SummaryE(2) ;
+        %          Ne.Est_MZDZ*2,          Ne.Est_DZSib,           NaN                    ;
+        %          Oe.Est_MZDZ*2,          Oe.Est_DZSib,           NaN                    ;
+        %          ACEfit_Par.SummaryA(3), ACEfit_Par.SummaryC(3), ACEfit_Par.SummaryE(3) ;
+        %          ACEfit_Par.SummaryA(4), ACEfit_Par.SummaryC(4), ACEfit_Par.SummaryE(4) ;
+        %          ACEfit_Par.SummaryA(5), ACEfit_Par.SummaryC(5), ACEfit_Par.SummaryE(5) ;
+        %          ACEfit_Par.SummaryA(6), ACEfit_Par.SummaryC(6), ACEfit_Par.SummaryE(6) ];
+        
+    case 'AE'
+        
+        Ests = [ ACEfit_Par.SummaryA(1), NaN,           ACEfit_Par.SummaryE(1) ;
+                 ACEfit_Par.SummaryA(2), NaN,           ACEfit_Par.SummaryE(2) ;
+                 E_s.Est_MZDZ*2,         E_s.Est_DZSib, NaN                    ;
+                 ACEfit_Par.SummaryA(3), NaN,           ACEfit_Par.SummaryE(3) ;
+                 ACEfit_Par.SummaryA(4), NaN,           ACEfit_Par.SummaryE(4) ;
+                 ACEfit_Par.SummaryA(5), NaN,           ACEfit_Par.SummaryE(5) ;
+                 ACEfit_Par.SummaryA(6), NaN,           ACEfit_Par.SummaryE(6) ];
+        % Ests = [ ACEfit_Par.SummaryA(1), NaN,          ACEfit_Par.SummaryE(1) ;
+        %          ACEfit_Par.SummaryA(2), NaN,          ACEfit_Par.SummaryE(2) ;
+        %          Ne.Est_MZDZ*2,          Ne.Est_DZSib, NaN                    ;
+        %          Oe.Est_MZDZ*2,          Oe.Est_DZSib, NaN                    ;
+        %          ACEfit_Par.SummaryA(3), NaN,          ACEfit_Par.SummaryE(3) ;
+        %          ACEfit_Par.SummaryA(4), NaN,          ACEfit_Par.SummaryE(4) ;
+        %          ACEfit_Par.SummaryA(5), NaN,          ACEfit_Par.SummaryE(5) ;
+        %          ACEfit_Par.SummaryA(6), NaN,          ACEfit_Par.SummaryE(6) ];
+        
+end
 
 if ACEfit_Par.nPerm>0
-    load(fullfile(ACEfit_Par.ResDir,'Pvals_h2'))             % Pvals_h2
     
-    P_s = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe'));   % Pvals_MZDZ Pvals_DZSib
-    % Np = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe_Norm'));     
-    % Op = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe_NoNorm'));   
+    load(fullfile(ACEfit_Par.ResDir,'Pvals_h2'))               % Pvals_h2
+    
+    if exist(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe.mat'),'file')
+        P_s = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe'));  % Pvals_MZDZ Pvals_DZSib
+        % Np = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe_Norm'));
+        % Op = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe_NoNorm'));
+    else
+        P_s.Pvals_MZDZ  = NaN;
+        P_s.Pvals_DZSib = NaN;
+    end  
     
     Ps = [ Pvals_h2(1),       NaN,                NaN ;
            Pvals_h2(2),       NaN,                NaN ;
@@ -65,34 +100,70 @@ if ACEfit_Par.nPerm>0
     %        Pvals_h2(4),      NaN,               NaN ;
     %        Pvals_h2(5),      NaN,               NaN ;
     %        Pvals_h2(6),      NaN,               NaN ];
+    
 else
+    
     Ps = NaN(length(Names),3);
+
 end
 
 if ACEfit_Par.nBoot>0
+    
     load(fullfile(ACEfit_Par.ResDir,'Boot_CIs'))             % alpha CIs_h2 CIs_c2 CIs_e2
     
-    CI_s = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe'));    % CI_MZDZ CI_DZSib
-    % Nc = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe_Norm'));       
-    % Oc = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe_NoNorm'));     
+    if exist(fullfile(ACEfit_Par.ResDir,'CIs_AgHe.mat'),'file')
+        CI_s = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe')); % CI_MZDZ CI_DZSib
+        % Nc = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe_Norm'));
+        % Oc = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe_NoNorm'));
+    else
+        CI_s.CI_MZDZ =  [NaN NaN];
+        CI_s.CI_DZSib = [NaN NaN];
+    end  
     
-    CIs = { CIs_h2(1,:),    CIs_c2(1,:),   CIs_e2(1,:) ;
-            CIs_h2(2,:),    CIs_c2(2,:),   CIs_e2(2,:) ;
-            CI_s.CI_MZDZ*2, CI_s.CI_DZSib, [NaN NaN]   ;
-            CIs_h2(3,:),    CIs_c2(3,:),   CIs_e2(3,:) ;
-            CIs_h2(4,:),    CIs_c2(4,:),   CIs_e2(4,:) ;
-            CIs_h2(5,:),    CIs_c2(5,:),   CIs_e2(5,:) ;
-            CIs_h2(6,:),    CIs_c2(6,:),   CIs_e2(6,:) };
-    % CIs = { CIs_h2(1,:),  CIs_c2(1,:), CIs_e2(1,:) ;
-    %         CIs_h2(2,:),  CIs_c2(2,:), CIs_e2(2,:) ;
-    %         Nc.CI_MZDZ*2, Nc.CI_DZSib, [NaN NaN]   ;
-    %         Oc.CI_MZDZ*2, Oc.CI_DZSib, [NaN NaN]   ;
-    %         CIs_h2(3,:),  CIs_c2(3,:), CIs_e2(3,:) ;
-    %         CIs_h2(4,:),  CIs_c2(4,:), CIs_e2(4,:) ;
-    %         CIs_h2(5,:),  CIs_c2(5,:), CIs_e2(5,:) ;
-    %         CIs_h2(6,:),  CIs_c2(6,:), CIs_e2(6,:) };
+    switch upper(ACEfit_Par.Model)
+        
+        case 'ACE'
+            
+            CIs = { CIs_h2(1,:),    CIs_c2(1,:),   CIs_e2(1,:) ;
+                    CIs_h2(2,:),    CIs_c2(2,:),   CIs_e2(2,:) ;
+                    CI_s.CI_MZDZ*2, CI_s.CI_DZSib, [NaN NaN]   ;
+                    CIs_h2(3,:),    CIs_c2(3,:),   CIs_e2(3,:) ;
+                    CIs_h2(4,:),    CIs_c2(4,:),   CIs_e2(4,:) ;
+                    CIs_h2(5,:),    CIs_c2(5,:),   CIs_e2(5,:) ;
+                    CIs_h2(6,:),    CIs_c2(6,:),   CIs_e2(6,:) };
+            % CIs = { CIs_h2(1,:),  CIs_c2(1,:), CIs_e2(1,:) ;
+            %         CIs_h2(2,:),  CIs_c2(2,:), CIs_e2(2,:) ;
+            %         Nc.CI_MZDZ*2, Nc.CI_DZSib, [NaN NaN]   ;
+            %         Oc.CI_MZDZ*2, Oc.CI_DZSib, [NaN NaN]   ;
+            %         CIs_h2(3,:),  CIs_c2(3,:), CIs_e2(3,:) ;
+            %         CIs_h2(4,:),  CIs_c2(4,:), CIs_e2(4,:) ;
+            %         CIs_h2(5,:),  CIs_c2(5,:), CIs_e2(5,:) ;
+            %         CIs_h2(6,:),  CIs_c2(6,:), CIs_e2(6,:) };
+            
+        case 'AE'
+            
+            CIs = { CIs_h2(1,:),    [NaN NaN],     CIs_e2(1,:) ;
+                    CIs_h2(2,:),    [NaN NaN],     CIs_e2(2,:) ;
+                    CI_s.CI_MZDZ*2, CI_s.CI_DZSib, [NaN NaN]   ;
+                    CIs_h2(3,:),    [NaN NaN],     CIs_e2(3,:) ;
+                    CIs_h2(4,:),    [NaN NaN],     CIs_e2(4,:) ;
+                    CIs_h2(5,:),    [NaN NaN],     CIs_e2(5,:) ;
+                    CIs_h2(6,:),    [NaN NaN],     CIs_e2(6,:) };
+            % CIs = { CIs_h2(1,:),  [NaN NaN],   CIs_e2(1,:) ;
+            %         CIs_h2(2,:),  [NaN NaN],   CIs_e2(2,:) ;
+            %         Nc.CI_MZDZ*2, Nc.CI_DZSib, [NaN NaN]   ;
+            %         Oc.CI_MZDZ*2, Oc.CI_DZSib, [NaN NaN]   ;
+            %         CIs_h2(3,:),  [NaN NaN],   CIs_e2(3,:) ;
+            %         CIs_h2(4,:),  [NaN NaN],   CIs_e2(4,:) ;
+            %         CIs_h2(5,:),  [NaN NaN],   CIs_e2(5,:) ;
+            %         CIs_h2(6,:),  [NaN NaN],   CIs_e2(6,:) };
+            
+    end
+    
 else
+    
     CIs = repmat({NaN(1,2)},length(Names),3);
+
 end
 
 
@@ -106,7 +177,7 @@ if ~ACEfit_Par.NoImg
     CIs = [ CIs;
             {[NaN NaN],[NaN NaN],[NaN NaN]} ];
     
-    if ACEfit_Par.nPerm>0        
+    if ACEfit_Par.nPerm>0 
         load(fullfile(ACEfit_Par.ResDir,'Pvals_Max_h2')) % FWE voxel-wise p-value p_T (and cluster-based p-value p_K & p_M)        
         Ps = [ Ps;
                p_T, NaN, NaN ];

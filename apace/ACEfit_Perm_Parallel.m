@@ -5,7 +5,7 @@ function ACEfit_Perm_Parallel(ACEfit_Par,RunID)
 
 nPm = ACEfit_Par.nPermPerRun;
 
-for k=RunID
+for k = RunID
     
     i0          = sum(nPm(1:(k-1)));
     nPermPerRun = nPm(k);
@@ -21,7 +21,7 @@ for k=RunID
         end
     end
     
-    for j=1:nPermPerRun
+    for j = 1:nPermPerRun
         
         if rem(j,50)==0; fprintf('%d ',j); end
         

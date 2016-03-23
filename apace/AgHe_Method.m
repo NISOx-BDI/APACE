@@ -1,20 +1,31 @@
-function AgHe_Method(ACEfit_Par,Palpha,Balpha,varargin)
+function AgHe_Method(ACEfit_Par,varargin)
 %
 % Permutation & bootstrap inferences for AgHe (aka Steve's) method
 %
-% AgHe_Method(ACEfit_Par,Palpha,Balpha)          - Save results
-% AgHe_Method(ACEfit_Par,Palpha,Balpha,'_Norm')  - Save results with the suffix
-%
+% AgHe_Method(ACEfit_Par)                        - Save results
+% AgHe_Method(ACEfit_Par,'_Norm')                - Save results with suffix
+%                                                  for permutation & bootstrap
+% AgHe_Method(ACEfit_Par,'_Norm',Palpha,Balpha)  - Save results with the suffix,
+%                                                  also set Perm & Bootstrap alpha
 
 if size(ACEfit_Par.Y,1)==1
     error('Aggregate heritability is designed for multiple phenotypes!')
 end
 
-if nargin<=3
+if nargin<2
     ResSuf = '';
 else
-    % Results suffix
     ResSuf = varargin{1};
+end
+if nargin<3 || isempty(varargin{2})
+    Palpha = 0.05;
+else
+    Palpha = varargin{2};
+end
+if nargin<4 || isempty(varargin{3})
+    Balpha = 0.05;
+else
+    Balpha = varargin{3};
 end
 
 nMZF  = ACEfit_Par.nMZF;
@@ -29,6 +40,10 @@ cFam  = cFam(1:end-1);
 % Compute the OLS residuals, with appropriate normalisation
 %
 Res = ACEfit_Par.Y' - ACEfit_Par.X*pinv(ACEfit_Par.X)*ACEfit_Par.Y';
+
+if ( ~isfield(ACEfit_Par,'AggNlz') || isempty(ACEfit_Par.AggNlz) )
+    ACEfit_Par.AggNlz = 0;
+end
 
 switch(ACEfit_Par.AggNlz)
     case 1
@@ -149,7 +164,6 @@ Est_MZDZ  = mean(rMZo) - mean(rDZo);
 Est_DZSib = mean(rDZo) - mean(rSibo);
 
 
-
 f = get(0,'Children');
 if isempty(f)
     f = 1;
@@ -158,7 +172,7 @@ else
     % f = max(f)+1;
 end
 
-figure(f); 
+SetFig(f);
 % AgHe box plots
 Z = [rMZo;                  rDZo;                 rSibo                  ];
 g = [zeros(length(rMZo),1); ones(length(rDZo),1); 2*ones(length(rSibo),1)];
@@ -166,16 +180,14 @@ boxplot(Z,g);
 title(sprintf('Boxplots of Correlations of Aggregate Heritabilities'));
 set(gca, 'XTick', [1; 2; 3]);
 set(gca, 'XTickLabel', {'MZ'; 'DZ'; 'SIB'});
-set(gcf,'PaperPosition',[0 0 10 6])
-set(gcf,'PaperSize',[10 6])
 print('-dpdf',fullfile(ACEfit_Par.ResDir,'AgHe_CorrPlots.pdf'));
 
 
 
 
 save(fullfile(ACEfit_Par.ResDir,['Ests_AgHe' ResSuf]),...
-     'Est_MZDZ','Est_DZSib',...
-     'rMZo', 'rDZo', 'rSibo');
+                                 'Est_MZDZ','Est_DZSib',...
+                                 'rMZo', 'rDZo', 'rSibo');
 
 
 %
@@ -236,7 +248,7 @@ if ACEfit_Par.nPerm>0
     % 1st statistic: 2-sample t-statistic
     %
     f = f+1;
-    figure(f);
+    SetFig(f);
     [st_stats_MZ_DZ,~]    = sort(t_stats_MZ_DZ);
     ctl_val_t_stats_MZ_DZ = st_stats_MZ_DZ(ctl_val_index);
     [f1,x1]               = hist(st_stats_MZ_DZ,100);
@@ -246,28 +258,19 @@ if ACEfit_Par.nPerm>0
     % Calculate the permutation-based p-value
     p_t_stats_MZ_DZ = (N-n_t_stats_MZ_DZ+1)/N;
     
-    set(gca, 'xtick', 0)
-    if ctl_val_t_stats_MZ_DZ==t_stats_MZ_DZ(N)
-        set(gca, 'xtick', ctl_val_t_stats_MZ_DZ)
-    else
-        set(gca, 'xtick', sort([ctl_val_t_stats_MZ_DZ t_stats_MZ_DZ(N)]))
-    end
-    
     title(sprintf('H0 dist of two-sample t-statistic for rMZ & rDZ, P-value=%.3f',p_t_stats_MZ_DZ));
     xlabel('t-statistic for rMZ vs. rDZ');
     ylabel('frequency');
-    hold on;
     yLimits = get(gca,'YLim');
     line([t_stats_MZ_DZ(N) t_stats_MZ_DZ(N)],[0 yLimits(2)],'Marker','.','Color','green');
     line([ctl_val_t_stats_MZ_DZ ctl_val_t_stats_MZ_DZ],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
-    hold off;
-    set(gcf,'PaperPosition',[0 0 10 6])
-    set(gcf,'PaperSize',[10 6])
+    text(t_stats_MZ_DZ(N),0.8*yLimits(2),num2str(t_stats_MZ_DZ(N)))
+    text(ctl_val_t_stats_MZ_DZ,0.9*yLimits(2),num2str(ctl_val_t_stats_MZ_DZ))
     print('-dpdf',fullfile(ACEfit_Par.ResDir,['H0dist_Tstat_rMZ_rDZ' ResSuf '.pdf']));
     
     
     f = f+1;
-    figure(f);
+    SetFig(f);
     [st_stats_DZ_Sib,~]    = sort(t_stats_DZ_Sib);
     ctl_val_t_stats_DZ_Sib = st_stats_DZ_Sib(ctl_val_index);
     [f1,x1]                = hist(st_stats_DZ_Sib,100);
@@ -277,23 +280,14 @@ if ACEfit_Par.nPerm>0
     % Calculate the permutation-based p-value
     p_t_stats_DZ_Sib = (N-n_t_stats_DZ_Sib+1)/N;
     
-    set(gca, 'xtick', 0)
-    if ctl_val_t_stats_DZ_Sib==t_stats_DZ_Sib(N)
-        set(gca, 'xtick', ctl_val_t_stats_DZ_Sib)
-    else
-        set(gca, 'xtick', sort([ctl_val_t_stats_DZ_Sib t_stats_DZ_Sib(N)]))
-    end
-    
     title(sprintf('H0 dist of two-sample t-statistic for rDZ & rSib, P-value=%.3f',p_t_stats_DZ_Sib));
     xlabel('t-statistic for rDZ vs. rSib');
     ylabel('frequency');
-    hold on;
     yLimits = get(gca,'YLim');
     line([t_stats_DZ_Sib(N) t_stats_DZ_Sib(N)],[0 yLimits(2)],'Marker','.','Color','green');
     line([ctl_val_t_stats_DZ_Sib ctl_val_t_stats_DZ_Sib],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
-    hold off;
-    set(gcf,'PaperPosition',[0 0 10 6])
-    set(gcf,'PaperSize',[10 6])
+    text(t_stats_DZ_Sib(N),0.8*yLimits(2),num2str(t_stats_DZ_Sib(N)))
+    text(ctl_val_t_stats_DZ_Sib,0.9*yLimits(2),num2str(ctl_val_t_stats_DZ_Sib))
     print('-dpdf',fullfile(ACEfit_Par.ResDir,['H0dist_Tstat_rDZ_rSib' ResSuf '.pdf']));
     
     
@@ -301,7 +295,7 @@ if ACEfit_Par.nPerm>0
     % 2nd statistic: mean difference
     %
     f = f+1;
-    figure(f);
+    SetFig(f);
     [sCorrDiff_MZ_DZ,~]    = sort(CorrDiff_MZ_DZ);
     ctl_val_CorrDiff_MZ_DZ = sCorrDiff_MZ_DZ(ctl_val_index);
     [f2,x2]                = hist(sCorrDiff_MZ_DZ,100);
@@ -311,28 +305,19 @@ if ACEfit_Par.nPerm>0
     % Calculate the permutation-based p-value
     p_CorrDiff_MZ_DZ = (N-n_CorrDiff_MZ_DZ+1)/N;
     
-    set(gca, 'xtick', 0)
-    if ctl_val_CorrDiff_MZ_DZ==CorrDiff_MZ_DZ(N)
-        set(gca, 'xtick', ctl_val_CorrDiff_MZ_DZ)
-    else
-        set(gca, 'xtick', sort([ctl_val_CorrDiff_MZ_DZ CorrDiff_MZ_DZ(N)]))
-    end
-    
     title(sprintf('H0 dist of mean difference between rMZ & rDZ, P-value=%.3f',p_CorrDiff_MZ_DZ));
     xlabel('E(rMZ) - E(rDZ)');
     ylabel('frequency');
-    hold on;
     yLimits = get(gca,'YLim');
     line([CorrDiff_MZ_DZ(N) CorrDiff_MZ_DZ(N)],[0 yLimits(2)],'Marker','.','Color','green');
     line([ctl_val_CorrDiff_MZ_DZ ctl_val_CorrDiff_MZ_DZ],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
-    hold off;
-    set(gcf,'PaperPosition',[0 0 10 6])
-    set(gcf,'PaperSize',[10 6])
+    text(CorrDiff_MZ_DZ(N),0.8*yLimits(2),num2str(CorrDiff_MZ_DZ(N)))
+    text(ctl_val_CorrDiff_MZ_DZ,0.9*yLimits(2),num2str(ctl_val_CorrDiff_MZ_DZ))
     print('-dpdf',fullfile(ACEfit_Par.ResDir,['H0dist_Diff_rMZ_rDZ' ResSuf '.pdf']));
     
     
     f = f+1;
-    figure(f);
+    SetFig(f);
     [sCorrDiff_DZ_Sib,~]    = sort(CorrDiff_DZ_Sib);
     ctl_val_CorrDiff_DZ_Sib = sCorrDiff_DZ_Sib(ctl_val_index);
     [f2,x2]                 = hist(sCorrDiff_DZ_Sib,100);
@@ -342,23 +327,14 @@ if ACEfit_Par.nPerm>0
     % Calculate the permutation-based p-value
     p_CorrDiff_DZ_Sib = (N-n_CorrDiff_DZ_Sib+1)/N;
     
-    set(gca, 'xtick', 0)
-    if ctl_val_CorrDiff_DZ_Sib==CorrDiff_DZ_Sib(N)
-        set(gca, 'xtick', ctl_val_CorrDiff_DZ_Sib)
-    else
-        set(gca, 'xtick', sort([ctl_val_CorrDiff_DZ_Sib CorrDiff_DZ_Sib(N)]))
-    end
-    
     title(sprintf('H0 dist of mean difference between rDZ & rSib, P-value=%.3f',p_CorrDiff_DZ_Sib));
     xlabel('E[rDZ-rSib]');
     ylabel('frequency');
-    hold on;
     yLimits = get(gca,'YLim');
     line([CorrDiff_DZ_Sib(N) CorrDiff_DZ_Sib(N)],[0 yLimits(2)],'Marker','.','Color','green');
     line([ctl_val_CorrDiff_DZ_Sib ctl_val_CorrDiff_DZ_Sib],[0 yLimits(2)],'Marker','.','LineStyle','-.','Color','red');
-    hold off;
-    set(gcf,'PaperPosition',[0 0 10 6])
-    set(gcf,'PaperSize',[10 6])
+    text(CorrDiff_DZ_Sib(N),0.8*yLimits(2),num2str(CorrDiff_DZ_Sib(N)))
+    text(ctl_val_CorrDiff_DZ_Sib,0.9*yLimits(2),num2str(ctl_val_CorrDiff_DZ_Sib))
     print('-dpdf',fullfile(ACEfit_Par.ResDir,['H0dist_Diff_rDZ_rSib' ResSuf '.pdf']));
     
     
@@ -423,5 +399,10 @@ end
 
 return
 
+function SetFig(f)
 
+figure(f)
+set(gcf,'PaperPosition',[0 0 10 6])
+set(gcf,'PaperSize',[10 6])
 
+return
