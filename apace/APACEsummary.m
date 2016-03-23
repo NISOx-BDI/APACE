@@ -38,15 +38,15 @@ switch upper(ACEfit_Par.Model)
         
         Ests = [ ACEfit_Par.SummaryA(1), ACEfit_Par.SummaryC(1), ACEfit_Par.SummaryE(1) ;
                  ACEfit_Par.SummaryA(2), ACEfit_Par.SummaryC(2), ACEfit_Par.SummaryE(2) ;
-                 E_s.Est_MZDZ*2,         E_s.Est_DZSib,          NaN                    ;
+                 E_s.Est_MZDZ*2,         NaN,                    NaN                    ;
                  ACEfit_Par.SummaryA(3), ACEfit_Par.SummaryC(3), ACEfit_Par.SummaryE(3) ;
                  ACEfit_Par.SummaryA(4), ACEfit_Par.SummaryC(4), ACEfit_Par.SummaryE(4) ;
                  ACEfit_Par.SummaryA(5), ACEfit_Par.SummaryC(5), ACEfit_Par.SummaryE(5) ;
                  ACEfit_Par.SummaryA(6), ACEfit_Par.SummaryC(6), ACEfit_Par.SummaryE(6) ];
         % Ests = [ ACEfit_Par.SummaryA(1), ACEfit_Par.SummaryC(1), ACEfit_Par.SummaryE(1) ;
         %          ACEfit_Par.SummaryA(2), ACEfit_Par.SummaryC(2), ACEfit_Par.SummaryE(2) ;
-        %          Ne.Est_MZDZ*2,          Ne.Est_DZSib,           NaN                    ;
-        %          Oe.Est_MZDZ*2,          Oe.Est_DZSib,           NaN                    ;
+        %          Ne.Est_MZDZ*2,          NaN,                    NaN                    ;
+        %          Oe.Est_MZDZ*2,          NaN,                    NaN                    ;
         %          ACEfit_Par.SummaryA(3), ACEfit_Par.SummaryC(3), ACEfit_Par.SummaryE(3) ;
         %          ACEfit_Par.SummaryA(4), ACEfit_Par.SummaryC(4), ACEfit_Par.SummaryE(4) ;
         %          ACEfit_Par.SummaryA(5), ACEfit_Par.SummaryC(5), ACEfit_Par.SummaryE(5) ;
@@ -56,15 +56,15 @@ switch upper(ACEfit_Par.Model)
         
         Ests = [ ACEfit_Par.SummaryA(1), NaN,           ACEfit_Par.SummaryE(1) ;
                  ACEfit_Par.SummaryA(2), NaN,           ACEfit_Par.SummaryE(2) ;
-                 E_s.Est_MZDZ*2,         E_s.Est_DZSib, NaN                    ;
+                 E_s.Est_MZDZ*2,         NaN,           NaN                    ;
                  ACEfit_Par.SummaryA(3), NaN,           ACEfit_Par.SummaryE(3) ;
                  ACEfit_Par.SummaryA(4), NaN,           ACEfit_Par.SummaryE(4) ;
                  ACEfit_Par.SummaryA(5), NaN,           ACEfit_Par.SummaryE(5) ;
                  ACEfit_Par.SummaryA(6), NaN,           ACEfit_Par.SummaryE(6) ];
         % Ests = [ ACEfit_Par.SummaryA(1), NaN,          ACEfit_Par.SummaryE(1) ;
         %          ACEfit_Par.SummaryA(2), NaN,          ACEfit_Par.SummaryE(2) ;
-        %          Ne.Est_MZDZ*2,          Ne.Est_DZSib, NaN                    ;
-        %          Oe.Est_MZDZ*2,          Oe.Est_DZSib, NaN                    ;
+        %          Ne.Est_MZDZ*2,          NaN,          NaN                    ;
+        %          Oe.Est_MZDZ*2,          NaN,          NaN                    ;
         %          ACEfit_Par.SummaryA(3), NaN,          ACEfit_Par.SummaryE(3) ;
         %          ACEfit_Par.SummaryA(4), NaN,          ACEfit_Par.SummaryE(4) ;
         %          ACEfit_Par.SummaryA(5), NaN,          ACEfit_Par.SummaryE(5) ;
@@ -87,15 +87,15 @@ if ACEfit_Par.nPerm>0
     
     Ps = [ Pvals_h2(1),       NaN,                NaN ;
            Pvals_h2(2),       NaN,                NaN ;
-           P_s.Pvals_MZDZ(1), P_s.Pvals_DZSib(1), NaN ;
+           P_s.Pvals_MZDZ(1), NaN,                NaN ;
            Pvals_h2(3),       NaN,                NaN ;
            Pvals_h2(4),       NaN,                NaN ;
            Pvals_h2(5),       NaN,                NaN ;
            Pvals_h2(6),       NaN,                NaN ];
     % Ps = [ Pvals_h2(1),      NaN,               NaN ;
     %        Pvals_h2(2),      NaN,               NaN ;
-    %        Np.Pvals_MZDZ(1), Np.Pvals_DZSib(1), NaN ;
-    %        Op.Pvals_MZDZ(1), Op.Pvals_DZSib(1), NaN ;
+    %        Np.Pvals_MZDZ(1), NaN,               NaN ;
+    %        Op.Pvals_MZDZ(1), NaN,               NaN ;
     %        Pvals_h2(3),      NaN,               NaN ;
     %        Pvals_h2(4),      NaN,               NaN ;
     %        Pvals_h2(5),      NaN,               NaN ;
@@ -126,15 +126,15 @@ if ACEfit_Par.nBoot>0
             
             CIs = { CIs_h2(1,:),    CIs_c2(1,:),   CIs_e2(1,:) ;
                     CIs_h2(2,:),    CIs_c2(2,:),   CIs_e2(2,:) ;
-                    CI_s.CI_MZDZ*2, CI_s.CI_DZSib, [NaN NaN]   ;
+                    CI_s.CI_MZDZ*2, [NaN NaN], [NaN NaN]   ;
                     CIs_h2(3,:),    CIs_c2(3,:),   CIs_e2(3,:) ;
                     CIs_h2(4,:),    CIs_c2(4,:),   CIs_e2(4,:) ;
                     CIs_h2(5,:),    CIs_c2(5,:),   CIs_e2(5,:) ;
                     CIs_h2(6,:),    CIs_c2(6,:),   CIs_e2(6,:) };
             % CIs = { CIs_h2(1,:),  CIs_c2(1,:), CIs_e2(1,:) ;
             %         CIs_h2(2,:),  CIs_c2(2,:), CIs_e2(2,:) ;
-            %         Nc.CI_MZDZ*2, Nc.CI_DZSib, [NaN NaN]   ;
-            %         Oc.CI_MZDZ*2, Oc.CI_DZSib, [NaN NaN]   ;
+            %         Nc.CI_MZDZ*2, [NaN NaN],   [NaN NaN]   ;
+            %         Oc.CI_MZDZ*2, [NaN NaN],   [NaN NaN]   ;
             %         CIs_h2(3,:),  CIs_c2(3,:), CIs_e2(3,:) ;
             %         CIs_h2(4,:),  CIs_c2(4,:), CIs_e2(4,:) ;
             %         CIs_h2(5,:),  CIs_c2(5,:), CIs_e2(5,:) ;
@@ -144,15 +144,15 @@ if ACEfit_Par.nBoot>0
             
             CIs = { CIs_h2(1,:),    [NaN NaN],     CIs_e2(1,:) ;
                     CIs_h2(2,:),    [NaN NaN],     CIs_e2(2,:) ;
-                    CI_s.CI_MZDZ*2, CI_s.CI_DZSib, [NaN NaN]   ;
+                    CI_s.CI_MZDZ*2, [NaN NaN], [NaN NaN]   ;
                     CIs_h2(3,:),    [NaN NaN],     CIs_e2(3,:) ;
                     CIs_h2(4,:),    [NaN NaN],     CIs_e2(4,:) ;
                     CIs_h2(5,:),    [NaN NaN],     CIs_e2(5,:) ;
                     CIs_h2(6,:),    [NaN NaN],     CIs_e2(6,:) };
             % CIs = { CIs_h2(1,:),  [NaN NaN],   CIs_e2(1,:) ;
             %         CIs_h2(2,:),  [NaN NaN],   CIs_e2(2,:) ;
-            %         Nc.CI_MZDZ*2, Nc.CI_DZSib, [NaN NaN]   ;
-            %         Oc.CI_MZDZ*2, Oc.CI_DZSib, [NaN NaN]   ;
+            %         Nc.CI_MZDZ*2, [NaN NaN],   [NaN NaN]   ;
+            %         Oc.CI_MZDZ*2, [NaN NaN],   [NaN NaN]   ;
             %         CIs_h2(3,:),  [NaN NaN],   CIs_e2(3,:) ;
             %         CIs_h2(4,:),  [NaN NaN],   CIs_e2(4,:) ;
             %         CIs_h2(5,:),  [NaN NaN],   CIs_e2(5,:) ;
