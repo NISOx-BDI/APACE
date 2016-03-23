@@ -20,13 +20,13 @@ if ~ACEfit_Par.NoImg
 end
 
 i0 = 0;
-for i=ACEfit_Par.RunID
+for i = ACEfit_Par.RunID
     try
         file = fullfile(ACEfit_Par.ResDir,sprintf('ACEfit_Parallel_%04d',i));
     catch
         file = fullfile(ACEfit_Par.ResDir,sprintf('ACEfit_Parallel_%4d',i));
     end
-    s    = load(file);
+    s = load(file);
     
     mean_A( (i0+1):(i0+s.nPermPerRun)) = s.MEANH2;
     wh2_A(  (i0+1):(i0+s.nPermPerRun)) = s.WH2;
@@ -44,7 +44,7 @@ for i=ACEfit_Par.RunID
         end
     end
     
-    i0   = i0 + s.nPermPerRun;
+    i0 = i0 + s.nPermPerRun;
 end
 clear s
 
