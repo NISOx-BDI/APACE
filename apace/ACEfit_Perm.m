@@ -293,11 +293,6 @@ switch upper(ACEfit_Par.Model)
         
 end
 
-if BadElm>0
-    fprintf('WARNING: Voxels/elements found with zero environmental variance (%d).  Check for serverely sparse discrete data.\n',BadElm);
-end
-
-
 % Summary statistics
 h2       = hh(I_data,1);
 Sigma2   = Sigma2(I_data);
