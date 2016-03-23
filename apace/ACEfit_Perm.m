@@ -37,6 +37,8 @@ if ~ACEfit_Par.NoImg
     Stats = zeros(nElm,1);
 end
 
+BadElm = 0;
+
 switch upper(ACEfit_Par.Model)
     
     case 'ACE'
@@ -50,7 +52,7 @@ switch upper(ACEfit_Par.Model)
             %
             % Heritability estimation
             %
-            [hha,HH] = LRSD_ACE_FAM(I_MZ,I_DZ,I_Sib,iRes,XTX,pinvXTX,sig2);            
+            [hha,HH] = LRSD_ACE_FAM(I_MZ,I_DZ,I_Sib,iRes,XTX,pinvXTX,sig2);
             hha      = hha/sum(hha);
             
             h2(i)    = hha(1);
@@ -60,68 +62,76 @@ switch upper(ACEfit_Par.Model)
                 %
                 % Likelihood ratio test
                 %
-                index = ACEcode(hha);
-                if ( index==ACEcode([0 0 1]) || index==ACEcode([0 1 1]) )
-                    % Parameter A is zero, test-statistic is zero
-                    T = 0;
+                
+                if (hha(3)<1e-5)
+                    % Zero environmental variance... give up
+                    BadElm   = BadElm + 1;
+                    Stats(i) = 0;
                 else
-                    % Parameter A is non-zero... compute log-likelihood...
-                    if ( min(HH(:,3))>=0 )
-                        hh0 = HH(:,3);
+                    
+                    index = ACEcode(hha);
+                    if ( index==ACEcode([0 0 1]) || index==ACEcode([0 1 1]) )
+                        % Parameter A is zero, test-statistic is zero
+                        T = 0;
                     else
-                        hh0 = HH(:,1);
-                    end
-                    hh0 = hh0/sum(hh0);
-                    
-                    [det_Va,det_V0] = deal(1);
-                    [invMZR,invOTR,invR0] = deal(cell(max(nFam),1));
-                    [invMZR{1},invOTR{1},invR0{1}] = deal(1);
-                    
-                    for nF=2:max(nFam)
-                        n_nF   = sum(nFam==nF);
-                        n_nFMZ = sum(nFam(Perm_label(1:nMZF))==nF);
+                        % Parameter A is non-zero... compute log-likelihood...
+                        if ( min(HH(:,3))>=0 )
+                            hh0 = HH(:,3);
+                        else
+                            hh0 = HH(:,1);
+                        end
+                        hh0 = hh0/sum(hh0);
                         
-                        %%% ACE model
-                        a          = hha(1)/2+hha(3);
-                        b          = hha(1)/2+hha(2);
-                        R          = eye(nF)*a + ones(nF)*b;
-                        det_Va     = det_Va*det(R)^(n_nF-n_nFMZ);
-                        invOTR{nF} = (eye(nF) - ones(nF)*b/(a+b*nF))/a;
+                        [det_Va,det_V0] = deal(1);
+                        [invMZR,invOTR,invR0] = deal(cell(max(nFam),1));
+                        [invMZR{1},invOTR{1},invR0{1}] = deal(1);
                         
-                        R(1,2)     = hha(1)+hha(2);
-                        R(2,1)     = R(1,2);
-                        det_Va     = det_Va*det(R)^n_nFMZ;
-                        invMZR{nF} = sparse(pinv(R));
+                        for nF=2:max(nFam)
+                            n_nF   = sum(nFam==nF);
+                            n_nFMZ = sum(nFam(Perm_label(1:nMZF))==nF);
+                            
+                            %%% ACE model
+                            a          = hha(1)/2+hha(3);
+                            b          = hha(1)/2+hha(2);
+                            R          = eye(nF)*a + ones(nF)*b;
+                            det_Va     = det_Va*det(R)^(n_nF-n_nFMZ);
+                            invOTR{nF} = (eye(nF) - ones(nF)*b/(a+b*nF))/a;
+                            
+                            R(1,2)     = hha(1)+hha(2);
+                            R(2,1)     = R(1,2);
+                            det_Va     = det_Va*det(R)^n_nFMZ;
+                            invMZR{nF} = sparse(pinv(R));
+                            
+                            %%% CE model
+                            R0         = eye(nF)*hh0(3) + ones(nF)*hh0(2);
+                            det_V0     = det_V0*det(R0)^n_nF;
+                            invR0{nF}  = (eye(nF) - ones(nF)*hh0(2)/(hh0(3)+hh0(2)*nF))/hh0(3);
+                        end
                         
-                        %%% CE model
-                        R0         = eye(nF)*hh0(3) + ones(nF)*hh0(2);
-                        det_V0     = det_V0*det(R0)^n_nF;
-                        invR0{nF}  = (eye(nF) - ones(nF)*hh0(2)/(hh0(3)+hh0(2)*nF))/hh0(3);
+                        % ACE model
+                        Ua = blkdiag(invOTR{nFam});
+                        for nF = Perm_label(1:nMZF)
+                            IndF = nFam(nF);
+                            i0   = sum(nFam(1:nF-1));
+                            Ua(i0+[1:IndF], i0+[1:IndF]) = invMZR{IndF};
+                        end
+                        Za  = pinv(X'*Ua*X);
+                        Pa  = Ua-Ua*X*Za*X'*Ua;
+                        rla = -(iY'*Pa*iY/sig2+log(det_Va)+log(det(X'*Ua*X)))/2;
+                        
+                        % CE model
+                        U0  = blkdiag(invR0{nFam});
+                        Z0  = pinv(X'*U0*X);
+                        P0  = U0-U0*X*Z0*X'*U0;
+                        rl0 = -(iY'*P0*iY/sig2+log(det_V0)+log(det(X'*U0*X)))/2;
+                        
+                        % Compute LRT statistic
+                        T = max(0,-2*(rl0-rla));
                     end
                     
-                    % ACE model
-                    Ua = blkdiag(invOTR{nFam});
-                    for nF = Perm_label(1:nMZF)
-                        IndF = nFam(nF);
-                        i0   = sum(nFam(1:nF-1));
-                        Ua(i0+[1:IndF], i0+[1:IndF]) = invMZR{IndF};
-                    end
-                    Za  = pinv(X'*Ua*X);
-                    Pa  = Ua-Ua*X*Za*X'*Ua;
-                    rla = -(iY'*Pa*iY/sig2+log(det_Va)+log(det(X'*Ua*X)))/2;
+                    Stats(i) = T;
                     
-                    % CE model
-                    U0  = blkdiag(invR0{nFam});
-                    Z0  = pinv(X'*U0*X);
-                    P0  = U0-U0*X*Z0*X'*U0;
-                    rl0 = -(iY'*P0*iY/sig2+log(det_V0)+log(det(X'*U0*X)))/2;
-                    
-                    % Compute LRT statistic
-                    T = max(0,-2*(rl0-rla));
                 end
-                
-                Stats(i) = T;
-                
             end
             
         end
@@ -153,54 +163,66 @@ switch upper(ACEfit_Par.Model)
                 %
                 % Likelihood ratio test
                 %
-                index = ACEcode(hha);
-                if ( index==ACEcode([0 0 1]) )
-                    % Parameter A is zero, test-statistic is zero
-                    T = 0;
+                
+                if (hha(3)<1e-5)
+                    % Zero environmental variance... give up
+                    BadElm   = BadElm + 1;
+                    Stats(i) = 0;
                 else
-                    % Parameter A is non-zero... compute log-likelihood...
-                    det_Va                = 1;
-                    [invMZR,invOTR]       = deal(cell(max(nFam),1));
-                    [invMZR{1},invOTR{1}] = deal(1);
                     
-                    for nF=2:max(nFam)
-                        n_nF       = sum(nFam==nF);
-                        n_nFMZ     = sum(nFam(1:nMZF)==nF);
+                    index = ACEcode(hha);
+                    if ( index==ACEcode([0 0 1]) )
+                        % Parameter A is zero, test-statistic is zero
+                        T = 0;
+                    else
+                        % Parameter A is non-zero... compute log-likelihood...
+                        det_Va                = 1;
+                        [invMZR,invOTR]       = deal(cell(max(nFam),1));
+                        [invMZR{1},invOTR{1}] = deal(1);
                         
-                        %%% AE model
-                        a          = hha(1)/2+hha(3);
-                        b          = hha(1)/2;
-                        Ra         = eye(nF)*a + ones(nF)*b;
-                        det_Va     = det_Va*det(Ra)^(n_nF-n_nFMZ);
-                        invOTR{nF} = (eye(nF) - ones(nF)*b/(a+b*nF))/a;
+                        for nF=2:max(nFam)
+                            n_nF       = sum(nFam==nF);
+                            n_nFMZ     = sum(nFam(1:nMZF)==nF);
+                            
+                            %%% AE model
+                            a          = hha(1)/2+hha(3);
+                            b          = hha(1)/2;
+                            Ra         = eye(nF)*a + ones(nF)*b;
+                            det_Va     = det_Va*det(Ra)^(n_nF-n_nFMZ);
+                            invOTR{nF} = (eye(nF) - ones(nF)*b/(a+b*nF))/a;
+                            
+                            Ra(1,2)    = hha(1);
+                            Ra(2,1)    = Ra(1,2);
+                            det_Va     = det_Va*det(Ra)^n_nFMZ;
+                            invMZR{nF} = sparse(pinv(Ra));
+                        end
                         
-                        Ra(1,2)    = hha(1);
-                        Ra(2,1)    = Ra(1,2);
-                        det_Va     = det_Va*det(Ra)^n_nFMZ;
-                        invMZR{nF} = sparse(pinv(Ra));
+                        % AE model
+                        Ua  = blkdiag(invMZR{nFam(1:nMZF)}, invOTR{nFam(nMZF+1:end)});
+                        Za  = pinv(X'*Ua*X);
+                        Pa  = Ua-Ua*X*Za*X'*Ua;
+                        rla = -(iY'*Pa*iY/sig2+log(det_Va)+log(det(X'*Ua*X)))/2;
+                        
+                        % E model
+                        rl0 = -(iY'*P0*iY/sig2+log(det(X'*X)))/2;
+                        
+                        % Compute LRT statistic
+                        T = max(0,-2*(rl0-rla));
                     end
                     
-                    % AE model
-                    Ua  = blkdiag(invMZR{nFam(1:nMZF)}, invOTR{nFam(nMZF+1:end)});
-                    Za  = pinv(X'*Ua*X);
-                    Pa  = Ua-Ua*X*Za*X'*Ua;
-                    rla = -(iY'*Pa*iY/sig2+log(det_Va)+log(det(X'*Ua*X)))/2;
+                    Stats(i) = T;
                     
-                    % E model
-                    rl0 = -(iY'*P0*iY/sig2+log(det(X'*X)))/2;
-                    
-                    % Compute LRT statistic
-                    T = max(0,-2*(rl0-rla));
                 end
-                
-                Stats(i) = T;
-                
             end
             
         end
         
 end
 
+
+if BadElm>0
+    fprintf('WARNING: Voxels/elements found with zero environmental variance (%d).  Check for serverely sparse discrete data.\n',BadElm);
+end
 
 
 [mK,mM,mT,uCount] = deal(0);

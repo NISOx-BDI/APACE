@@ -51,8 +51,9 @@ else
 end
 
 % Number of all subjects
-n    = size(ACEfit_Par.kin,1);
+n    = ACEfit_Par.N;
 Vs.n = n;  % redundant, but useful
+
 
 %
 % Check family data and load the data as well (because you have to load

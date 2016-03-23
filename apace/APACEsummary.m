@@ -23,7 +23,7 @@ end
 Names = {'Mean','VarWtMean','AgHe','Median Q2','Q3','Mean(>Q2)','Mean(>Q3)'};
 % Names = {'Mean','VarWtMean','AgHeNorm','AgHeNoNorm','Median Q2','Q3','Mean(>Q2)','Mean(>Q3)'};
 
-if exist(fullfile(ACEfit_Par.ResDir,'Ests_AgHe'),'file')
+if exist(fullfile(ACEfit_Par.ResDir,'Ests_AgHe.mat'),'file')
     E_s = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe'));        % Est_MZDZ Est_DZSib
     % Ne = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe_Norm'));
     % Oe = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe_NoNorm'));
@@ -76,7 +76,7 @@ if ACEfit_Par.nPerm>0
     
     load(fullfile(ACEfit_Par.ResDir,'Pvals_h2'))               % Pvals_h2
     
-    if exist(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe'),'file')
+    if exist(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe.mat'),'file')
         P_s = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe'));  % Pvals_MZDZ Pvals_DZSib
         % Np = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe_Norm'));
         % Op = load(fullfile(ACEfit_Par.ResDir,'Pvals_AgHe_NoNorm'));
@@ -111,7 +111,7 @@ if ACEfit_Par.nBoot>0
     
     load(fullfile(ACEfit_Par.ResDir,'Boot_CIs'))             % alpha CIs_h2 CIs_c2 CIs_e2
     
-    if exist(fullfile(ACEfit_Par.ResDir,'CIs_AgHe'),'file')
+    if exist(fullfile(ACEfit_Par.ResDir,'CIs_AgHe.mat'),'file')
         CI_s = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe')); % CI_MZDZ CI_DZSib
         % Nc = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe_Norm'));
         % Oc = load(fullfile(ACEfit_Par.ResDir,'CIs_AgHe_NoNorm'));
@@ -177,7 +177,7 @@ if ~ACEfit_Par.NoImg
     CIs = [ CIs;
             {[NaN NaN],[NaN NaN],[NaN NaN]} ];
     
-    if ACEfit_Par.nPerm>0        
+    if ACEfit_Par.nPerm>0 
         load(fullfile(ACEfit_Par.ResDir,'Pvals_Max_h2')) % FWE voxel-wise p-value p_T (and cluster-based p-value p_K & p_M)        
         Ps = [ Ps;
                p_T, NaN, NaN ];

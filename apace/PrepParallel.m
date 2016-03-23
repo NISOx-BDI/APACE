@@ -1,18 +1,22 @@
-function PrepParallel(ACEfit_Par,nParallel)
+function PrepParallel(ACEfit_Par)
 %
 % Update the input structure array 'ACEfit_Par' for parallelization
 %
-% nParallel - Number of parallel runs
-%
 
-if isempty(nParallel)
-    nParallel = 1;
+if ( ~isfield(ACEfit_Par,'nPerm') || isempty(ACEfit_Par.nPerm) )
+    ACEfit_Par.nPerm = 1000;
 end
+if ( ~isfield(ACEfit_Par,'nBoot') || isempty(ACEfit_Par.nBoot) )
+    ACEfit_Par.nBoot = 1000;
+end
+if ( ~isfield(ACEfit_Par,'nParallel') || isempty(ACEfit_Par.nParallel) )
+    ACEfit_Par.nParallel = 1;
+end
+nPerm     = ACEfit_Par.nPerm;
+nBoot     = ACEfit_Par.nBoot;
+nParallel = ACEfit_Par.nParallel;
 
 ACEfit_Par.RunID = 1:nParallel;
-
-nPerm = ACEfit_Par.nPerm;
-nBoot = ACEfit_Par.nBoot;
 
 nMZF  = ACEfit_Par.nMZF;
 nDZF  = ACEfit_Par.nDZF;

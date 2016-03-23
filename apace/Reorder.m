@@ -16,6 +16,11 @@ function ACEfit_Par = Reorder(ACEfit_Par)
 %
 
 %
+% Fill-in defaults
+%
+if ~isfield(ACEfit_Par,'Subset'); ACEfit_Par.Subset = []; end
+
+%
 % Read mother ID, father ID and zygosity
 %
 fid  = fopen(ACEfit_Par.InfMx);
@@ -25,17 +30,55 @@ end
 Afid = textscan(fid,'%s','Delimiter', ',');
 fclose(fid);
 
-n    = length(Afid{1})/4 - 1;
-Bfid = reshape(Afid{1},4,n+1)';
+N    = length(Afid{1})/4 - 1;
+Bfid = reshape(Afid{1},4,N+1)';
 Bfid = Bfid(2:end,:);
-Bfid = cellfun(@(x) x(x~=' ' & x~='"'),Bfid,'un',0);
+Bfid = cellfun(@(x) x(x~=' ' & x~='"'),Bfid,'UniformOutput',0);
 
-FamIDs = cell2mat(cellfun(@str2num,strcat(Bfid(:,2),Bfid(:,3)),'un',0));
+% Select a subset of subjects to form the sample for analysis
+if ~isempty(ACEfit_Par.Subset)
+    Bfid = Bfid(ACEfit_Par.Subset,:);
+else
+    ACEfit_Par.Subset = 1:N;
+end
 
+% Save the total number of subjects in the kinship file
+ACEfit_Par.N = N;
+
+% Compute and save the sample size after subject selection
+n = length(ACEfit_Par.Subset);
+ACEfit_Par.n = n;
+
+%%% TODO: Error checking on Bfid to catch missing (i.e. empty or NaN)
+%%% values for any input value, especially Father ID.
+
+% Find missing data in the kinship file
+Cfid = strcmp('NaN',Bfid) | strcmp('',Bfid);
+if any(any(Cfid))
+    fprintf('WARNING: Missing data (on %d subjects) found in the kinship file!\n',sum(any(Cfid,2));
+end
+
+%
+% Construct Family ID using Mother ID and Father ID
+%
+FamIDs = cellfun(@str2num,strcat(Bfid(:,2),Bfid(:,3)),'UniformOutput',0);
+FamIDs = cell2mat(cellfun(@(x) nansum(x),FamIDs,'UniformOutput',0));
+% Obtain subjects with missing Mother ID or Father ID
+NaNSub = Cfid(:,2)+Cfid(:,3)~=0;
+% Set Family ID of subjects with missing Mother ID or Father ID as
+% max(FamIDs) + 1:length(NaNSub), i.e. subjects with missing kinship
+% information are assumed to be singletons from different families
+FamIDs(NaNSub) = max(FamIDs) + (1:sum(NaNSub))';
+
+%
+% Generate zygosity vector
+%
 Zyg = zeros(n,1);
 Zyg(strcmp('MZ',     Bfid(:,4))) = 1;
 Zyg(strcmp('NotMZ',  Bfid(:,4))) = 2;
 Zyg(strcmp('NotTwin',Bfid(:,4))) = 3;
+% Set subjects with missing Zygosity as singletons
+Zyg(Zyg==0)                      = 3;
 
 
 %
@@ -161,7 +204,7 @@ fprintf(['*** Data summary\n',...
 	'  %4d Singletons\n',...
 	'  %4d Smallest family size\n',...
 	'  %4d Largest family size\n\n'],...
-	sum(nFam),nMZF,nDZF,nSibF,nSG,min(nFam),max(nFam));
+	n,nMZF,nDZF,nSibF,nSG,min(nFam),max(nFam));
 
 
 return

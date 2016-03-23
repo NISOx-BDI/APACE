@@ -3,13 +3,12 @@ function ACEfit_Par = ProcData(ACEfit_Par,Y,YM)
 % Process data for further computation
 %
 
-[nElm,n] = size(Y);
+nElm = size(Y,1);
 
-if ~isfield(ACEfit_Par,'Subset') || isempty(ACEfit_Par.Subset)
-  ACEfit_Par.Subset = 1:n;
-end
-
+n      = ACEfit_Par.n;
 Subset = ACEfit_Par.Subset;
+
+Y = Y(:,Subset);
 
 X = ACEfit_Par.Dsnmtx;
 if isempty(X)
@@ -73,6 +72,11 @@ for j = 1:nElm
     end
 end
 I_data = find(tmp);
+if isempty(YM) && ~all(tmp==1)
+    fprintf('Voxels/elements removed due to missingness or being constant (%d).\n',sum(~tmp));
+elseif ~isempty(YM) && sum(~tmp)>sum(~YM)
+    fprintf('Voxels/elements removed due to missingness or being constant (%d; plus %d due to mask).\n',sum(~tmp)-sum(~YM),sum(~YM));
+end
 
 if isempty(I_data)
     error('All in-mask data vectors are null vectors or contain NaN')
