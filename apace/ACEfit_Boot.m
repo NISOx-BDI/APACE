@@ -29,6 +29,12 @@ Sigma2 = sum(Res.^2,2)/(nB-size(X,2));
 %
 [hhACE0,hhAE0,~] = LRSD_ACE_VEC(I_MZ,I_DZ,I_Sib,Res,Sigma2);
 
+% Hack, for possibility of all-constant Bootstrap sample with discrete data:
+% Set ACE to [0 0 1]
+Iconst = find(Sigma2==0);
+hhACE0(Iconst,1:2)=0; hhACE0(Iconst,3)=1;
+ hhAE0(Iconst,1:2)=0;  hhAE0(Iconst,3)=1;
+
 switch upper(ACEfit_Par.Model)
     
     case 'ACE'
