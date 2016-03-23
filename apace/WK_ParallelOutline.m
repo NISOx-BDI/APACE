@@ -159,7 +159,7 @@ end
 
 
 %
-% Bootstrapping
+% Bootstrapping inference for constructing CIs
 %
 
 if ACEfit_Par.nBoot>0
