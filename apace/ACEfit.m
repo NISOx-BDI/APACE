@@ -426,7 +426,7 @@ f = f+1;
 figure(f);
 plot(sort(h2O));
 grid on
-title('Heritabilty h^2')
+title('Heritabilty h^2 - Cumulative Distribution')
 axis tight
 set(gcf,'PaperPosition',[0 0 10 6])
 set(gcf,'PaperSize',[10 6])
