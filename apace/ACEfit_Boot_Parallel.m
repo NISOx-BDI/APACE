@@ -6,6 +6,8 @@ function ACEfit_Boot_Parallel(ACEfit_Par,RunID)
 cFam = [0; cumsum(ACEfit_Par.nFam)];
 nBt  = ACEfit_Par.nBootPerRun;
 
+fprintf('Bootstrap: ')
+
 for k = RunID
     
     i0          = sum(nBt(1:(k-1)));

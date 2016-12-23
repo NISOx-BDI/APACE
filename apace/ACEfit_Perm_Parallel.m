@@ -5,6 +5,8 @@ function ACEfit_Perm_Parallel(ACEfit_Par,RunID)
 
 nPm = ACEfit_Par.nPermPerRun;
 
+fprintf('Permutation: ')
+
 for k = RunID
     
     i0          = sum(nPm(1:(k-1)));
