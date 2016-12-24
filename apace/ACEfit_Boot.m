@@ -52,8 +52,8 @@ switch upper(ACEfit_Par.Model)
         medh2    = quartile(1);
         q3h2     = quartile(2);
         meanh2   = mean(h2);
-        mGmedh2  = mean(h2(h2>medh2));
-        mGq3h2   = mean(h2(h2>q3h2));
+        mGmedh2  = mean(h2(h2>=medh2));
+        mGq3h2   = mean(h2(h2>=q3h2));
         
         % Summary statistics: meanh2, wh2, median, q3, mean(h2>median), mean(h2>q3)
         SummaryA = [meanh2; wh2; medh2; q3h2; mGmedh2; mGq3h2];
@@ -65,8 +65,8 @@ switch upper(ACEfit_Par.Model)
         medc2    = quartile(1);
         q3c2     = quartile(2);
         meanc2   = mean(c2);
-        mGmedc2  = mean(c2(c2>medc2));
-        mGq3c2   = mean(c2(c2>q3c2));
+        mGmedc2  = mean(c2(c2>=medc2));
+        mGq3c2   = mean(c2(c2>=q3c2));
         
         % Summary statistics: meanc2, wc2, median, q3, mean(c2>median), mean(c2>q3)
         SummaryC = [meanc2; wc2; medc2; q3c2; mGmedc2; mGq3c2];
@@ -78,8 +78,8 @@ switch upper(ACEfit_Par.Model)
         mede2    = quartile(1);
         q3e2     = quartile(2);
         meane2   = mean(e2);
-        mGmede2  = mean(e2(e2>mede2));
-        mGq3e2   = mean(e2(e2>q3e2));
+        mGmede2  = mean(e2(e2>=mede2));
+        mGq3e2   = mean(e2(e2>=q3e2));
         
         % Summary statistics: meane2, we2, median, q3, mean(e2>median), mean(e2>q3)
         SummaryE = [meane2; we2; mede2; q3e2; mGmede2; mGq3e2];
@@ -101,8 +101,8 @@ switch upper(ACEfit_Par.Model)
         medh2    = quartile(1);
         q3h2     = quartile(2);
         meanh2   = mean(h2);
-        mGmedh2  = mean(h2(h2>medh2));
-        mGq3h2   = mean(h2(h2>q3h2));
+        mGmedh2  = mean(h2(h2>=medh2));
+        mGq3h2   = mean(h2(h2>=q3h2));
         
         % Summary statistics: meanh2, wh2, median, q3, mean(h2>median), mean(h2>q3)
         SummaryA = [meanh2; wh2; medh2; q3h2; mGmedh2; mGq3h2];
@@ -114,8 +114,8 @@ switch upper(ACEfit_Par.Model)
         mede2    = quartile(1);
         q3e2     = quartile(2);
         meane2   = mean(e2);
-        mGmede2  = mean(e2(e2>mede2));
-        mGq3e2   = mean(e2(e2>q3e2));
+        mGmede2  = mean(e2(e2>=mede2));
+        mGq3e2   = mean(e2(e2>=q3e2));
         
         % Summary statistics: meane2, we2, median, q3, mean(e2>median), mean(e2>q3)
         SummaryE = [meane2; we2; mede2; q3e2; mGmede2; mGq3e2];

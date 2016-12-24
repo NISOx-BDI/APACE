@@ -161,8 +161,8 @@ switch upper(ACEfit_Par.Model)
             medh2O   = quartile(1);
             q3h2O    = quartile(2);
             meanh2O  = mean(h2O);
-            mGmedh2O = mean(h2O(h2O>medh2O));
-            mGq3h2O  = mean(h2O(h2O>q3h2O));
+            mGmedh2O = mean(h2O(h2O>=medh2O));
+            mGq3h2O  = mean(h2O(h2O>=q3h2O));
             
             % Summary statistics: meanh2, wh2, median, q3, mean(h2>median), mean(h2>q3)
             ACEfit_Par.SummaryA = [meanh2O; wh2O; medh2O; q3h2O; mGmedh2O; mGq3h2O];
@@ -174,8 +174,8 @@ switch upper(ACEfit_Par.Model)
             medc2O   = quartile(1);
             q3c2O    = quartile(2);
             meanc2O  = mean(c2O);
-            mGmedc2O = mean(c2O(c2O>medc2O));
-            mGq3c2O  = mean(c2O(c2O>q3c2O));
+            mGmedc2O = mean(c2O(c2O>=medc2O));
+            mGq3c2O  = mean(c2O(c2O>=q3c2O));
             
             % Summary statistics: meanc2, wc2, median, q3, mean(c2>median), mean(c2>q3)
             ACEfit_Par.SummaryC = [meanc2O; wc2O; medc2O; q3c2O; mGmedc2O; mGq3c2O];
@@ -187,8 +187,8 @@ switch upper(ACEfit_Par.Model)
             mede2O   = quartile(1);
             q3e2O    = quartile(2);
             meane2O  = mean(e2O);
-            mGmede2O = mean(e2O(e2O>mede2O));
-            mGq3e2O  = mean(e2O(e2O>q3e2O));
+            mGmede2O = mean(e2O(e2O>=mede2O));
+            mGq3e2O  = mean(e2O(e2O>=q3e2O));
             
             % Summary statistics: meane2, we2, median, q3, mean(e2>median), mean(e2>q3)
             ACEfit_Par.SummaryE = [meane2O; we2O; mede2O; q3e2O; mGmede2O; mGq3e2O];
@@ -338,8 +338,8 @@ switch upper(ACEfit_Par.Model)
             medh2O   = quartile(1);
             q3h2O    = quartile(2);
             meanh2O  = mean(h2O);
-            mGmedh2O = mean(h2O(h2O>medh2O));
-            mGq3h2O  = mean(h2O(h2O>q3h2O));
+            mGmedh2O = mean(h2O(h2O>=medh2O));
+            mGq3h2O  = mean(h2O(h2O>=q3h2O));
             
             % Summary statistics: meanh2, wh2, median, q3, mean(h2>median), mean(h2>q3)
             ACEfit_Par.SummaryA = [meanh2O; wh2O; medh2O; q3h2O; mGmedh2O; mGq3h2O];
@@ -351,8 +351,8 @@ switch upper(ACEfit_Par.Model)
             mede2O   = quartile(1);
             q3e2O    = quartile(2);
             meane2O  = mean(e2O);
-            mGmede2O = mean(e2O(e2O>mede2O));
-            mGq3e2O  = mean(e2O(e2O>q3e2O));
+            mGmede2O = mean(e2O(e2O>=mede2O));
+            mGq3e2O  = mean(e2O(e2O>=q3e2O));
             
             % Summary statistics: meane2, we2, median, q3, mean(e2>median), mean(e2>q3)
             ACEfit_Par.SummaryE = [meane2O; we2O; mede2O; q3e2O; mGmede2O; mGq3e2O];

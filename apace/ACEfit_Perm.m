@@ -304,8 +304,8 @@ quartile = quantile(h2,[0.50 0.75]);
 medh2    = quartile(1);
 q3h2     = quartile(2);
 meanh2   = mean(h2);
-mGmedh2  = mean(h2(h2>medh2));
-mGq3h2   = mean(h2(h2>q3h2));
+mGmedh2  = mean(h2(h2>=medh2));
+mGq3h2   = mean(h2(h2>=q3h2));
 
 % Summary statistics: meanh2, wh2, median, q3, mean(h2>median), mean(h2>q3)
 SummaryA = [meanh2; wh2; medh2; q3h2; mGmedh2; mGq3h2];
