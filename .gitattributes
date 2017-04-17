@@ -1,0 +1,9 @@
+*.sh ident export-subst
+*.m ident export-subst
+*.c ident export-subst
+*.cc ident export-subst
+*.h ident export-subst
+*.py ident export-subst
+*.R ident export-subst
+.gitignore export-ignore
+.gitattributes export-ignore
