@@ -7,9 +7,9 @@ function [varargout] = APACEsummary(ACEfit_Par,varargin)
 %
 
 if nargin<=1
-    StdOut  = 1;
+    StdOut = 1;
 else
-    StdOut  = 0;
+    StdOut = 0;
     
     if strcmpi(spm_str_manip(varargin{1},'e'),'csv');
         CSVname = varargin{1};
@@ -20,8 +20,8 @@ else
     OutFile = fullfile(ACEfit_Par.ResDir,CSVname);
 end
 
-Names = {'Mean','VarWtMean','AgHe','Median Q2','Q3','Mean(>Q2)','Mean(>Q3)'};
-% Names = {'Mean','VarWtMean','AgHeNorm','AgHeNoNorm','Median Q2','Q3','Mean(>Q2)','Mean(>Q3)'};
+Names = {'Mean','VarWtMean','AgHe','Median Q2','Q3','Mean(>=Q2)','Mean(>=Q3)'};
+% Names = {'Mean','VarWtMean','AgHeNorm','AgHeNoNorm','Median Q2','Q3','Mean(>=Q2)','Mean(>=Q3)'};
 
 if exist(fullfile(ACEfit_Par.ResDir,'Ests_AgHe.mat'),'file')
     E_s = load(fullfile(ACEfit_Par.ResDir,'Ests_AgHe'));        % Est_MZDZ Est_DZSib

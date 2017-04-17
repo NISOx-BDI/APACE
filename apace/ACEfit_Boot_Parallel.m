@@ -3,13 +3,14 @@ function ACEfit_Boot_Parallel(ACEfit_Par,RunID)
 % Parallel Computation.
 %
 
-cFam = [0; cumsum(ACEfit_Par.nFam)];
-nBt  = ACEfit_Par.nBootPerRun;
+nBt = ACEfit_Par.nBootPerRun;
+
+IndFam_end = cumsum(ACEfit_Par.nFam);
+IndFam_beg = IndFam_end-ACEfit_Par.nFam+1;
 
 fprintf('Bootstrap: ')
 
 for k = RunID
-
     
     i0          = sum(nBt(1:(k-1)));
     nBootPerRun = nBt(k);
@@ -23,20 +24,32 @@ for k = RunID
         
         if ~rem(j,50); fprintf('%d ',j); end
         
+        % Create kinship matrix for each bootstrap replicate
         rand_pair = index(j,:);
-        [Boot_label, Boot_kin] = deal([]);
-        for nF = 1:length(rand_pair)
-            IndF       = cFam(rand_pair(nF))+1:cFam(rand_pair(nF)+1);
-            Boot_label = [Boot_label IndF];
-            Boot_kin   = blkdiag(Boot_kin, ACEfit_Par.kin(IndF,IndF));
-        end
         
+        BootFam_end = IndFam_end(rand_pair);
+        BootFam_beg = IndFam_beg(rand_pair);
+        
+        Boot_nFam = ACEfit_Par.nFam(rand_pair);
+        nB        = sum(Boot_nFam);
+        
+        Boot_label = zeros(1,nB);
+        Boot_kin   = zeros(nB);
+        iSubj      = 0;
+        for nF = 1:length(rand_pair)
+           IndexF = BootFam_beg(nF):BootFam_end(nF); 
+           
+           Boot_label(iSubj+[1:Boot_nFam(nF)])                         = IndexF;
+           Boot_kin(  iSubj+[1:Boot_nFam(nF)],iSubj+[1:Boot_nFam(nF)]) = ACEfit_Par.kin(IndexF,IndexF);
+           
+           iSubj = iSubj + Boot_nFam(nF);
+        end
+
         [SummaryACE] = ACEfit_Boot(ACEfit_Par,Boot_label,Boot_kin);
         
         switch upper(ACEfit_Par.Model)
             
             case 'ACE'
-
                 
                 MEANH2(j)  = SummaryACE(1,1);
                 WH2(j)     = SummaryACE(2,1);
@@ -90,11 +103,9 @@ for k = RunID
             str = fullfile(ACEfit_Par.ResDir,'BootCI_Parallel');
             save(sprintf('%s_%04d',str,k),'nBootPerRun','MEANH2','WH2','MEDH2','Q3H2','MGMEDH2','MGQ3H2',...
                                                         'MEANE2','WE2','MEDE2','Q3E2','MGMEDE2','MGQ3E2');
-
     end
     
 end
 
 fprintf('\n')
-
 return
