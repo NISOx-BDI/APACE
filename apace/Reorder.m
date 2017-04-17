@@ -14,6 +14,9 @@ function ACEfit_Par = Reorder(ACEfit_Par)
 %  2    - DZ twins
 %  3    - Siblings
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 %
 % Fill-in defaults

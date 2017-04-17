@@ -2,6 +2,9 @@ function [SummaryACE] = ACEfit_Boot(ACEfit_Par,Boot_label,Boot_kin)
 %
 % Bootstrapping.
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 nB       = size(Boot_kin,1);
 Boot_kin = triu(Boot_kin);

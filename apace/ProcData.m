@@ -2,6 +2,9 @@ function ACEfit_Par = ProcData(ACEfit_Par,Y,YM)
 %
 % Process data for further computation
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 nElm = size(Y,1);
 

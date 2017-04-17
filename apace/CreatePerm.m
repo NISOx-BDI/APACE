@@ -6,6 +6,10 @@ function Perm_index = CreatePerm(nG1,nG2,nPerm)
 % nG2    - number of subjects or subject pairs in group 2
 % nPerm  - number of permutations
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
+
 if nPerm>mynchoosek(nG1+nG2,nG1)
     error('Too many permutations requested! Please set %d or a smaller number for ''nPerm''!',mynchoosek(nG1+nG2,nG1))
 end

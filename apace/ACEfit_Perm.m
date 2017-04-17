@@ -4,6 +4,9 @@ function [mK,mM,mT,uCount,SummaryA] = ACEfit_Perm(ACEfit_Par,Perm_label)
 %
 % Perm_label - Permutation relabeling
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 X  = ACEfit_Par.X;
 Y  = ACEfit_Par.Y;

@@ -6,6 +6,9 @@ function d = Dims(X)
 % NIFTI header.
 % For CIFTI, input can be an cell array, and then a matrix with 7 columns is
 % returned with the cooresponding dimensional information.
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 if isa(X,'nifti')
     if length(X)==1

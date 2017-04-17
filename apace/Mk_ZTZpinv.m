@@ -13,6 +13,9 @@ function [pinvZTZ] = Mk_ZTZpinv(nMZSD,nDZSD,nSibSD,nOTW,n)
 %                          4*nOTW 4*nOTW                  4*nOTW
 %         2*(nDZSD+nSibSD)+4*nOTW 4*nOTW               2*(n^2-n) ];
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 pinvZTZ    = cell(4,1);
 

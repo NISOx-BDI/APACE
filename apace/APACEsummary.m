@@ -5,6 +5,9 @@ function [varargout] = APACEsummary(ACEfit_Par,varargin)
 %
 % [Ests,CIs,Ps,Names] = APACEsummary(ACEfit_Par) - Also return values
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 if nargin<=1
     StdOut = 1;

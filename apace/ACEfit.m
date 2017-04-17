@@ -10,6 +10,9 @@ function ACEfit_Par = ACEfit(ACEfit_Par)
 % null hypothesis, and thus the pivotal test statistic is recommendated in
 % permutation test.
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 X = ACEfit_Par.X;
 Y = ACEfit_Par.Y;

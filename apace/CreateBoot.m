@@ -7,6 +7,9 @@ function Boot_index = CreateBoot(nG1,nG2,nG3,nBoot)
 % nG3    - number of subjects or subject pairs or families in group 3
 % nBoot  - number of bootstrapping replicates
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 % Derive seed from time
 rng('shuffle');

@@ -5,7 +5,8 @@ function V = clone_vol(Vtemplate, fname, descrip)
 % Clones a volume, while discarding any information we don't want to
 % clone.
 %_______________________________________________________________________
-% $Id$
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 if iscell(Vtemplate)
     V = Vtemplate{1};

@@ -2,6 +2,9 @@ function ACEfit_Boot_Parallel(ACEfit_Par,RunID)
 %
 % Parallel Computation.
 %
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 nBt = ACEfit_Par.nBootPerRun;
 

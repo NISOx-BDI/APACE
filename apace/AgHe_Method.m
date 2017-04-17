@@ -7,6 +7,9 @@ function AgHe_Method(ACEfit_Par,varargin)
 %                                                  for permutation & bootstrap
 % AgHe_Method(ACEfit_Par,'_Norm',Palpha,Balpha)  - Save results with the suffix,
 %                                                  also set Perm & Bootstrap alpha
+%_______________________________________________________________________
+% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+%          $Format:%ci$
 
 if size(ACEfit_Par.Y,1)==1
     error('Aggregate heritability is designed for multiple phenotypes!')
