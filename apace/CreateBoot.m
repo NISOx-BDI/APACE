@@ -1,6 +1,6 @@
 function Boot_index = CreateBoot(nG1,nG2,nG3,nBoot)
 %
-% Create bootstrapping resampling labels
+% Create balanced bootstrapping resampling labels
 %
 % nG1    - number of subjects or subject pairs or families in group 1
 % nG2    - number of subjects or subject pairs or families in group 2
