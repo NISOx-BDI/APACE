@@ -35,6 +35,7 @@ for i = ACEfit_Par.RunID
     
     switch upper(ACEfit_Par.Model)        
         case 'ACE'
+
             mean_A( (i0+1):(i0+s.nBootPerRun)) = s.MEANH2;
             wh2_A(  (i0+1):(i0+s.nBootPerRun)) = s.WH2;
             med_A(  (i0+1):(i0+s.nBootPerRun)) = s.MEDH2;
@@ -77,6 +78,7 @@ clear s
 
 switch upper(ACEfit_Par.Model)    
     case 'ACE'        
+
         meanh2_ACE  = [mean_A;  ACEfit_Par.SummaryA(1)];
         wh2_ACE     = [wh2_A;   ACEfit_Par.SummaryA(2)];
         medh2_ACE   = [med_A;   ACEfit_Par.SummaryA(3)];
@@ -102,6 +104,7 @@ switch upper(ACEfit_Par.Model)
                                                        'meanc2_ACE','wc2_ACE','medc2_ACE','q3c2_ACE','mGmedc2_ACE','mGq3c2_ACE',...
                                                        'meane2_ACE','we2_ACE','mede2_ACE','q3e2_ACE','mGmede2_ACE','mGq3e2_ACE');    
     case 'AE'       
+
         meanh2_ACE  = [mean_A;  ACEfit_Par.SummaryA(1)];
         wh2_ACE     = [wh2_A;   ACEfit_Par.SummaryA(2)];
         medh2_ACE   = [med_A;   ACEfit_Par.SummaryA(3)];
@@ -118,6 +121,7 @@ switch upper(ACEfit_Par.Model)
         
         save(fullfile(ACEfit_Par.ResDir,'ACEfit_Boot'),'meanh2_ACE','wh2_ACE','medh2_ACE','q3h2_ACE','mGmedh2_ACE','mGq3h2_ACE',...
                                                        'meane2_ACE','we2_ACE','mede2_ACE','q3e2_ACE','mGmede2_ACE','mGq3e2_ACE');
+
 end
 
 return

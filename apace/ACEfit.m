@@ -317,6 +317,7 @@ switch upper(ACEfit_Par.Model)
                     
                     % Compute LRT test statistic
                     T(i) = -2*(rl0-rla);
+
                     
                 end
             end
@@ -412,6 +413,7 @@ switch upper(ACEfit_Par.Model)
             
         end
         
+
 end
 
 if BadElm>0
@@ -442,6 +444,7 @@ axis tight
 set(gcf,'PaperPosition',[0 0 10 6])
 set(gcf,'PaperSize',[10 6])
 print('-dpdf',fullfile(ACEfit_Par.ResDir,'h2_hist.pdf'));
+
 
 
 return

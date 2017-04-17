@@ -39,6 +39,7 @@ BadElm = 0;
 %
 [hhACE0,hhAE0,hhCE0] = LRSD_ACE_VEC(I_MZ,I_DZ,I_Sib,Res(I_data,:),Sigma2(I_data));
 
+
 switch upper(ACEfit_Par.Model)
     
     case 'ACE'
@@ -65,6 +66,7 @@ switch upper(ACEfit_Par.Model)
                 hha  = hh(i,:)';
                 hh0  = hhCE(i,:)';
                 sig2 = Sigma2(i);
+
                 
                 if (hha(3)<1e-5)
                     % Zero environmental variance... give up
@@ -75,12 +77,14 @@ switch upper(ACEfit_Par.Model)
                     % Parameter A is non-zero... compute log-likelihood...
                     index = ACEcode(hha);
                     if ( index==ACEcode([1 0 1]) || index==ACEcode([1 1 1]) )
+
                         
                         [det_Va,det_V0] = deal(1);
                         [invMZR,invOTR,invR0] = deal(cell(max(nFam),1));
                         [invMZR{1},invOTR{1},invR0{1}] = deal(1);
                         
                         for nF = 2:max(nFam)
+
                             n_nF   = sum(nFam==nF);
                             n_nFMZ = sum(nFam(Perm_label(1:nMZF))==nF);
                             
@@ -99,6 +103,7 @@ switch upper(ACEfit_Par.Model)
                             R0              = eye(nF)*hh0(3) + ones(nF)*hh0(2);
                             det_V0          = det_V0*det(R0)^n_nF;
                             invR0{nF}       = (eye(nF) - ones(nF)*hh0(2)/(hh0(3)+hh0(2)*nF))/hh0(3);
+
                         end
                         
                         % ACE model
@@ -166,6 +171,7 @@ switch upper(ACEfit_Par.Model)
                     mM = max(cluster_mass);
                 end
                 
+
             end
             
         end
@@ -194,6 +200,7 @@ switch upper(ACEfit_Par.Model)
                 iY   = Y(i,:)';
                 hha  = hh(i,:)';
                 sig2 = Sigma2(i);
+
                 
                 if (hha(3)<1e-5)
                     % Zero environmental variance... give up
@@ -205,6 +212,7 @@ switch upper(ACEfit_Par.Model)
                     index = ACEcode(hha);
                     if ( index==ACEcode([1 0 1]) )
                         
+
                         det_Va                = 1;
                         [invMZR,invOTR]       = deal(cell(max(nFam),1));
                         [invMZR{1},invOTR{1}] = deal(1);
@@ -232,6 +240,7 @@ switch upper(ACEfit_Par.Model)
                             i0   = sum(nFam(1:nF-1));
                             Ua(i0+[1:IndF], i0+[1:IndF]) = invMZR{IndF};
                         end
+
                         Za  = pinv(X'*Ua*X);
                         Pa  = Ua-Ua*X*Za*X'*Ua;
                         rla = -(iY'*Pa*iY/sig2+log(det_Va)+log(det(X'*Ua*X)))/2;
@@ -295,6 +304,7 @@ end
 
 % Summary statistics
 h2       = hh(I_data,1);
+
 Sigma2   = Sigma2(I_data);
 
 Aperm    = Sigma2.*h2;
@@ -306,6 +316,7 @@ q3h2     = quartile(2);
 meanh2   = mean(h2);
 mGmedh2  = mean(h2(h2>=medh2));
 mGq3h2   = mean(h2(h2>=q3h2));
+
 
 % Summary statistics: meanh2, wh2, median, q3, mean(h2>median), mean(h2>q3)
 SummaryA = [meanh2; wh2; medh2; q3h2; mGmedh2; mGq3h2];

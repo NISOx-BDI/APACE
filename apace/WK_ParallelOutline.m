@@ -16,6 +16,7 @@ ACEfit_Par.P_nm      = 'APACE_imgs.txt';  % A list of images or other data
                                           % FileFormats.txt
                                         
 ACEfit_Par.InfMx     = 'KinInfo.csv';     % Kinship information CSV file
+
                                           % with header row and exactly 4
                                           % columns: Subject ID, Mother ID,
                                           % Father ID, and Zygosity. Mother

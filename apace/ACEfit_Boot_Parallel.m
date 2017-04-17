@@ -9,6 +9,7 @@ nBt  = ACEfit_Par.nBootPerRun;
 fprintf('Bootstrap: ')
 
 for k = RunID
+
     
     i0          = sum(nBt(1:(k-1)));
     nBootPerRun = nBt(k);
@@ -35,6 +36,7 @@ for k = RunID
         switch upper(ACEfit_Par.Model)
             
             case 'ACE'
+
                 
                 MEANH2(j)  = SummaryACE(1,1);
                 WH2(j)     = SummaryACE(2,1);
@@ -88,9 +90,11 @@ for k = RunID
             str = fullfile(ACEfit_Par.ResDir,'BootCI_Parallel');
             save(sprintf('%s_%04d',str,k),'nBootPerRun','MEANH2','WH2','MEDH2','Q3H2','MGMEDH2','MGQ3H2',...
                                                         'MEANE2','WE2','MEDE2','Q3E2','MGMEDE2','MGQ3E2');
+
     end
     
 end
 
 fprintf('\n')
+
 return

@@ -132,6 +132,7 @@ else
     p_mGTmedian = (N-n_mGTmedian+1)/N;
     
     title(sprintf('H0 dist of Mean of h^2 >= Q2(h^2), P-value=%.3f',p_mGTmedian));
+
     xlabel('mean of h^2 > Q2(h^2)');
     yLimits = get(gca,'YLim');
     line([mGmed_ACE(N) mGmed_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
@@ -163,6 +164,7 @@ else
     p_mGTq3 = (N-n_mGTq3+1)/N;
     
     title(sprintf('H0 dist of Mean of h^2 >= Q3(h^2), P-value=%.3f',p_mGTq3));
+
     xlabel('mean of h^2 > Q3(h^2)');
     yLimits = get(gca,'YLim');
     line([mGq3_ACE(N) mGq3_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
@@ -276,6 +278,7 @@ if ~ACEfit_Par.NoImg
     end
     
     fprintf('Minimum element-wise P_FWE is %.4f. \n \n', 10.^(-max(corrPval_ACE(:))));
+
     
     %
     % Write out the output images

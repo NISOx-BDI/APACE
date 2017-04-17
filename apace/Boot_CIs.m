@@ -63,6 +63,7 @@ switch upper(ACEfit_Par.Model)
         fprintf('The %.1f%% confidence interval for the third quantile (Q3) of h2 is (%.2f, %.2f). \n', 100*(1-Balpha), CIs_h2(4,:));
         fprintf('The %.1f%% confidence interval for mean of h2>=Q2 is (%.2f, %.2f). \n',                 100*(1-Balpha), CIs_h2(5,:));
         fprintf('The %.1f%% confidence interval for mean of h2>=Q3 is (%.2f, %.2f). \n \n',              100*(1-Balpha), CIs_h2(6,:));
+
         
         fprintf('The %.1f%% confidence interval for mean of c2 is (%.2f, %.2f). \n',                    100*(1-Balpha), CIs_c2(1,:));
         fprintf('The %.1f%% confidence interval for weighted mean of c2 is (%.2f, %.2f). \n',           100*(1-Balpha), CIs_c2(2,:));
@@ -70,6 +71,7 @@ switch upper(ACEfit_Par.Model)
         fprintf('The %.1f%% confidence interval for the third quantile (Q3) of c2 is (%.2f, %.2f). \n', 100*(1-Balpha), CIs_c2(4,:));
         fprintf('The %.1f%% confidence interval for mean of c2>=Q2 is (%.2f, %.2f). \n',                 100*(1-Balpha), CIs_c2(5,:));
         fprintf('The %.1f%% confidence interval for mean of c2>=Q3 is (%.2f, %.2f). \n \n',              100*(1-Balpha), CIs_c2(6,:));
+
         
         fprintf('The %.1f%% confidence interval for mean of e2 is (%.2f, %.2f). \n',                    100*(1-Balpha), CIs_e2(1,:));
         fprintf('The %.1f%% confidence interval for weighted mean of e2 is (%.2f, %.2f). \n',           100*(1-Balpha), CIs_e2(2,:));
@@ -77,6 +79,7 @@ switch upper(ACEfit_Par.Model)
         fprintf('The %.1f%% confidence interval for the third quantile (Q3) of e2 is (%.2f, %.2f). \n', 100*(1-Balpha), CIs_e2(4,:));
         fprintf('The %.1f%% confidence interval for mean of e2>=Q2 is (%.2f, %.2f). \n',                 100*(1-Balpha), CIs_e2(5,:));
         fprintf('The %.1f%% confidence interval for mean of e2>=Q3 is (%.2f, %.2f). \n',                 100*(1-Balpha), CIs_e2(6,:));
+
         
         save(fullfile(ACEfit_Par.ResDir,'Boot_CIs'),'Balpha','CIs_h2','CIs_c2','CIs_e2');
         
@@ -116,6 +119,7 @@ switch upper(ACEfit_Par.Model)
         fprintf('The %.1f%% confidence interval for the third quantile (Q3) of h2 is (%.2f, %.2f). \n', 100*(1-Balpha), CIs_h2(4,:));
         fprintf('The %.1f%% confidence interval for mean of h2>=Q2 is (%.2f, %.2f). \n',                 100*(1-Balpha), CIs_h2(5,:));
         fprintf('The %.1f%% confidence interval for mean of h2>=Q3 is (%.2f, %.2f). \n \n',              100*(1-Balpha), CIs_h2(6,:));
+
         
         fprintf('The %.1f%% confidence interval for mean of e2 is (%.2f, %.2f). \n',                    100*(1-Balpha), CIs_e2(1,:));
         fprintf('The %.1f%% confidence interval for weighted mean of e2 is (%.2f, %.2f). \n',           100*(1-Balpha), CIs_e2(2,:));
@@ -123,6 +127,7 @@ switch upper(ACEfit_Par.Model)
         fprintf('The %.1f%% confidence interval for the third quantile (Q3) of e2 is (%.2f, %.2f). \n', 100*(1-Balpha), CIs_e2(4,:));
         fprintf('The %.1f%% confidence interval for mean of e2>=Q2 is (%.2f, %.2f). \n',                 100*(1-Balpha), CIs_e2(5,:));
         fprintf('The %.1f%% confidence interval for mean of e2>=Q3 is (%.2f, %.2f). \n',                 100*(1-Balpha), CIs_e2(6,:));
+
         
         save(fullfile(ACEfit_Par.ResDir,'Boot_CIs'),'Balpha','CIs_h2','CIs_e2');
         
