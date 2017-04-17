@@ -113,7 +113,7 @@ text(ctl_val_Q3,0.9*yLimits(2),num2str(ctl_val_Q3))
 print('-dpdf',fullfile(ACEfit_Par.ResDir,'H0dist_q3.pdf'));
 
 
-%%% (5) mean(>median)
+%%% (5) mean(>=median)
 if any(isnan(mGmed_ACE))
     
     p_mGTmedian = NaN;
@@ -132,7 +132,6 @@ else
     p_mGTmedian = (N-n_mGTmedian+1)/N;
     
     title(sprintf('H0 dist of Mean of h^2 >= Q2(h^2), P-value=%.3f',p_mGTmedian));
-
     xlabel('mean of h^2 > Q2(h^2)');
     yLimits = get(gca,'YLim');
     line([mGmed_ACE(N) mGmed_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');
@@ -145,7 +144,7 @@ else
 end
 
 
-%%% (6) mean(>q3)
+%%% (6) mean(>=q3)
 if any(isnan(mGq3_ACE))
     
     p_mGTq3 = NaN;
@@ -164,7 +163,6 @@ else
     p_mGTq3 = (N-n_mGTq3+1)/N;
     
     title(sprintf('H0 dist of Mean of h^2 >= Q3(h^2), P-value=%.3f',p_mGTq3));
-
     xlabel('mean of h^2 > Q3(h^2)');
     yLimits = get(gca,'YLim');
     line([mGq3_ACE(N) mGq3_ACE(N)],[0 yLimits(2)],'Marker','.','Color','green');

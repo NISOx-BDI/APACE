@@ -56,7 +56,6 @@ ACEfit_Par.n = n;
 Cfid = strcmp('NaN',Bfid) | strcmp('',Bfid);
 if any(any(Cfid))
     fprintf('WARNING: Missing data (on %d subjects) found in the kinship file!\n',sum(any(Cfid,2)));
-
 end
 
 %
