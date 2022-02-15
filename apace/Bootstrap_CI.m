@@ -5,9 +5,6 @@ function [B_CI_LB,B_CI_UB] = Bootstrap_CI(ST,alpha)
 % ST     - bootstrap estimates and the original estimate
 % alpha  - level
 %
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
 
 % 1-alpha/2 quantile of the standard normal distribution
 ST_alpha = spm_invNcdf(1-alpha/2);

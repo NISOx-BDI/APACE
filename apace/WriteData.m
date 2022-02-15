@@ -2,9 +2,6 @@ function WriteData(X,Vs,fname,fpath)
 %
 %  Write data, based on template image
 %
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
 
 if length(Vs.Dim)==1
     Dim = [Vs.Dim 1];

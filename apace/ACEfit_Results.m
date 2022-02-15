@@ -1,8 +1,5 @@
 function ACEfit_Results(ACEfit_Par,varargin)
 % FORMAT ACEfit_Results(ACEfit_Par[,FWEalpha,FDRalpha])
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
 
 if nargin>=2
     FWEalpha = varargin{1};
@@ -21,7 +18,7 @@ end
 
 load(fullfile(ACEfit_Par.ResDir,'ACEfit_Perm'));
 N             = ACEfit_Par.nPerm+1;
-ctl_val_index = N-floor(N*FWEalpha); % floor(N*(1-FWEalpha))+1
+ctl_val_index = N-floor(N*FWEalpha); % ceil(N*(1-FWEalpha))
 
 f = 0;
 

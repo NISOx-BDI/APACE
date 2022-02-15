@@ -1,6 +1,3 @@
-Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-         $Format:%ci$
-
 Input files for APACE can be specified in one of 4 general formats:
 
 1. String, the name of a text file of filepaths to nifti OR cifti

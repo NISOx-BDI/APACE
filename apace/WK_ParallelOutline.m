@@ -1,9 +1,6 @@
 %
 % Preparation
 %
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
 
 % % Uncomment this to hide figures (for the rest of your Matlab session!).
 % % This is useful if you don't want to see the large number of figure

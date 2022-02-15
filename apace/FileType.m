@@ -9,9 +9,6 @@ function [Type,CIFTIext] = FileType(fn)
 % by a Analyze image.
 %
 % For convenience, if a numeric variable is passed, it is classified as "MATRIX"
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
 
 Type     = 'UNKOWN';
 CIFTIext = '';

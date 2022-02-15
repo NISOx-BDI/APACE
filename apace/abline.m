@@ -12,9 +12,7 @@ function h=abline(a,b,varargin)
 % Like Splus' abline.  Line is plotted and then moved behind all other
 % points on the graph.
 %
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
+% $Id$
 
 if (nargin==2) & isstr(a)
   a = lower(a);

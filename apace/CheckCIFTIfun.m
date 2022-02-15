@@ -1,7 +1,3 @@
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
-
 function OK = CheckCIFTIfun(WBC)
 global CIFTI_OK
 if ~isempty(CIFTI_OK)

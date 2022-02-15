@@ -21,9 +21,6 @@ function Vs = CheckData(ACEfit_Par)
 %                 LoadData.m).
 % Vs.ImMks      - Information on mask data.
 %
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
 
 %
 % Fill-in defaults

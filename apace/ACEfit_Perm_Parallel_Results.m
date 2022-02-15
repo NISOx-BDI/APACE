@@ -2,9 +2,6 @@ function ACEfit_Perm_Parallel_Results(ACEfit_Par)
 %
 % Merge together results of RunID.
 %
-%_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
-%          $Format:%ci$
 
 mean_A  = zeros(ACEfit_Par.nPerm,1);
 wh2_A   = zeros(ACEfit_Par.nPerm,1);
