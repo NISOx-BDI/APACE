@@ -1,0 +1,6 @@
+.../Subj1/con_0001.img
+.../Subj2/con_0001.img
+.../Subj3/con_0001.img
+.../Subj4/con_0001.img
+.../Subj5/con_0001.img
+.../Subj6/con_0001.img

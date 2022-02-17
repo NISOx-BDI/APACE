@@ -1,0 +1,7 @@
+n,MotherID,FatherID,Zygosity
+1,1,1,MZ
+2,1,1,MZ
+3,2,2,NotMZ
+4,2,2,NotMZ
+5,3,3,NotTwin
+6,4,4,NotTwin
