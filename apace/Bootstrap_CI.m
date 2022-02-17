@@ -6,7 +6,7 @@ function [B_CI_LB,B_CI_UB] = Bootstrap_CI(ST,alpha)
 % alpha  - level
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 % 1-alpha/2 quantile of the standard normal distribution

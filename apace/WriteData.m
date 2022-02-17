@@ -3,7 +3,7 @@ function WriteData(X,Vs,fname,fpath)
 %  Write data, based on template image
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 if length(Vs.Dim)==1

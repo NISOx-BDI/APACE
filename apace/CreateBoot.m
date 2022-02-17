@@ -8,7 +8,7 @@ function Boot_index = CreateBoot(nG1,nG2,nG3,nBoot)
 % nBoot  - number of bootstrapping replicates
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 % Derive seed from time

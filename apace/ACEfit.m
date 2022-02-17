@@ -11,7 +11,7 @@ function ACEfit_Par = ACEfit(ACEfit_Par)
 % permutation test.
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 X = ACEfit_Par.X;

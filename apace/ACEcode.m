@@ -3,7 +3,7 @@ function x = ACEcode(ACE)
 % Maps active (non-zero) ACE parameters to a integer code
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 Code = [1 2 3];

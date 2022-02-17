@@ -15,7 +15,7 @@ function ACEfit_Par = Reorder(ACEfit_Par)
 %  3    - Siblings
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 %

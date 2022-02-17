@@ -7,7 +7,7 @@ function Perm_index = CreatePerm(nG1,nG2,nPerm)
 % nPerm  - number of permutations
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 if nPerm>mynchoosek(nG1+nG2,nG1)

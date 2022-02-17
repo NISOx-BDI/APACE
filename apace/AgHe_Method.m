@@ -8,7 +8,7 @@ function AgHe_Method(ACEfit_Par,varargin)
 % AgHe_Method(ACEfit_Par,'_Norm',Palpha,Balpha)  - Save results with the suffix,
 %                                                  also set Perm & Bootstrap alpha
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 if size(ACEfit_Par.Y,1)==1
