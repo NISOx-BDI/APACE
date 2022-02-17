@@ -2,7 +2,7 @@
 % Preparation
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 % % Uncomment this to hide figures (for the rest of your Matlab session!).

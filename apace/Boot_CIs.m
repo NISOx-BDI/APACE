@@ -4,7 +4,7 @@ function Boot_CIs(ACEfit_Par,varargin)
 % Generate Bootstrap CIs.
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 if nargin>=2

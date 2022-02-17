@@ -1,4 +1,4 @@
-Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
          $Format:%ci$
 
 Input files for APACE can be specified in one of 4 general formats:

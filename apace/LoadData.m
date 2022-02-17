@@ -3,7 +3,7 @@ function [Y,YM] = LoadData(Vs)
 %  Loads the data (actually, mostly already loaded)
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 switch Vs.FileType

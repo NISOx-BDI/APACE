@@ -3,7 +3,7 @@ function ACEfit_Par = PrepData(ACEfit_Par)
 % Updata 'ACEfit_Par' with the input data information
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 % Start of "ACEfit" computations; shuffle into expected order.

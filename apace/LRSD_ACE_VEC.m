@@ -14,7 +14,7 @@ function [hh,hhAE,hhCE] = LRSD_ACE_VEC(I_MZ,I_DZ,I_Sib,Res,sigma2)
 % hh*     - The parameter estimates of the possible models [E AE CE ACE]
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 [nElm,n]  = size(Res);

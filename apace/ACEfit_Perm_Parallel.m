@@ -3,7 +3,7 @@ function ACEfit_Perm_Parallel(ACEfit_Par,RunID)
 % Parallel Computing.
 %
 %_______________________________________________________________________
-% Version: http://github.com/nicholst/APACE/tree/$Format:%h$
+% Version: http://github.com/NISOx-BDI/APACE/tree/$Format:%h$
 %          $Format:%ci$
 
 nPm = ACEfit_Par.nPermPerRun;
